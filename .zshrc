@@ -2,11 +2,11 @@ alias nixrb="sudo nixos-rebuild switch --flake ~/dotfiles/nixos"
 
 alias hmrb="home-manager switch --flake ~/dotfiles/nixos"
 
-alias nixconf="code ~/dotfiles/nixos/configuration.nix" 
+alias nixconf="micro ~/dotfiles/nixos/configuration.nix" 
 
-alias hmconf="code ~/dotfiles/nixos/home.nix"
+alias hmconf="micro ~/dotfiles/nixos/home.nix"
 
-alias hyprconf="code ~/dotfiles/hypr/hyprland.lua"
+alias hyprconf="micro ~/dotfiles/hypr/hyprland.lua"
 
 alias onbattery='hyprctl eval '\''hl.monitor({
     output = "eDP-1",

@@ -1,1 +1,31 @@
-# Wayle configuration file
+[[modules.custom]]
+id = "blanket"
+mode = "poll"
+interval-ms = 2000
+icon-name = "ld-wind-symbolic"
+icon-map = { playing = "ld-wind-symbolic", paused = "ld-cloud-symbolic" }
+format = "{{ alt }}"
+tooltip-format = "Blanket: {{ alt }}"
+left-click = '''
+if pgrep -x "blanket" >/dev/null; then
+    gdbus call --session \
+        --dest org.mpris.MediaPlayer2.Blanket \
+        --object-path /org/mpris/MediaPlayer2 \
+        --method org.mpris.MediaPlayer2.Player.PlayPause >/dev/null 2>&1
+else
+    blanket >/dev/null 2>&1 &
+fi
+'''
+command = '''
+status=$(gdbus call --session \
+  --dest org.mpris.MediaPlayer2.Blanket \
+  --object-path /org/mpris/MediaPlayer2 \
+  --method org.freedesktop.DBus.Properties.Get \
+  org.mpris.MediaPlayer2.Player PlaybackStatus 2>/dev/null \
+  | sed -n "s/.*'\\([A-Za-z]*\\)'.*/\\1/p")
+case "$status" in
+  Playing) echo '{"alt":"playing"}' ;;
+  Paused)  echo '{"alt":"paused"}' ;;
+  *)       echo '{"alt":"off"}' ;;
+esac
+'''

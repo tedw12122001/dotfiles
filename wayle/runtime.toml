@@ -81,5 +81,57 @@ location = "Liverpool"
 icon-color = "status-success"
 label-color = "status-success"
 
+[[modules.custom]]
+id = "blanket"
+command = '''
+status=$(gdbus call --session \
+  --dest org.mpris.MediaPlayer2.Blanket \
+  --object-path /org/mpris/MediaPlayer2 \
+  --method org.freedesktop.DBus.Properties.Get \
+  org.mpris.MediaPlayer2.Player PlaybackStatus 2>/dev/null \
+  | grep -o "'[^']*'" | tr -d "'")
+
+case "$status" in
+  Playing) echo '{"alt":"playing"}' ;;
+  Paused)  echo '{"alt":"paused"}' ;;
+  *)       echo '{"alt":"off"}' ;;
+esac
+'''
+mode = "poll"
+interval-ms = 2000
+restart-policy = "never"
+restart-interval-ms = 1000
+format = "{{ alt }}"
+tooltip-format = "Blanket: {{ alt }}"
+hide-if-empty = false
+icon-name = "ld-wind-symbolic"
+icon-show = true
+icon-color = "auto"
+icon-bg-color = "auto"
+label-show = true
+label-color = "auto"
+label-max-length = 0
+button-bg-color = "bg-surface-elevated"
+border-show = false
+border-color = "auto"
+left-click = '''
+if pgrep -x "blanket" >/dev/null; then
+    gdbus call --session \
+        --dest org.mpris.MediaPlayer2.Blanket \
+        --object-path /org/mpris/MediaPlayer2 \
+        --method org.mpris.MediaPlayer2.Player.Play >/dev/null 2>&1
+else
+    blanket >/dev/null 2>&1 &
+fi
+'''
+right-click = ""
+middle-click = ""
+scroll-up = ""
+scroll-down = ""
+
+[modules.custom.icon-map]
+paused = "ld-cloud-symbolic"
+playing = "ld-wind-symbolic"
+
 [wallpaper]
 engine-enabled = false

@@ -9,6 +9,31 @@
   # Flakes.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
+  # Packages. 
+  environment.systemPackages = with pkgs; [
+  audacious   # MP3 Player
+  blanket   # White noise generator
+  discord
+  git
+  gotop
+  hyprpaper
+  hyprpolkitagent
+  kitty
+  libnotify   # Create test notifications.
+  micro
+  miktex
+  nautilus
+  qbittorrent
+  rofi
+  spotify
+  stremio-linux-shell
+  unzip
+  vscode
+  wayle
+  wget
+  zotero
+  ];
+  
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -91,30 +116,6 @@
   # Allow flatpacks.
   services.flatpak.enable = true;
   # The following is then required: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && flatpak update"
-
-  # Packages. 
-  environment.systemPackages = with pkgs; [
-  audacious   # MP3 Player
-  blanket   # White noise generator
-  discord
-  git
-  gotop
-  hyprpaper
-  hyprpolkitagent
-  kitty
-  libnotify   # Create test notifications.
-  miktex
-  nautilus
-  qbittorrent
-  rofi
-  spotify
-  stremio-linux-shell
-  unzip
-  vscode
-  wayle
-  wget
-  zotero
-  ];
 
   fonts.packages = with pkgs; [
   nerd-fonts.jetbrains-mono
