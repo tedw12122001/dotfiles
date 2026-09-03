@@ -1,0 +1,66 @@
+% --- Document Configuration ---
+\documentclass[12pt]{article} 
+\usepackage{setspace}
+\onehalfspacing   % Sets line spacing to 1.5
+\widowpenalty=10000
+\clubpenalty=10000   % Prevents single line "orphans" from extending to a new page
+\usepackage[margin=1in]{geometry}   % Adds 1 inch margin to whole page
+\usepackage{graphicx}   % Allows you to add images
+\usepackage{booktabs}   % Adds lines to tables
+\usepackage{siunitx}   % Aligns columns in tables
+\usepackage{caption}   % Allows you to edit captions
+
+% --- Text Formatting ---
+\usepackage{fontspec}
+\setmainfont{Times New Roman}   % Converts text to Times New Roman
+\usepackage{expex}   % Make lists 
+\usepackage[none]{hyphenat}   % Prevents hyphenation
+\sloppy
+
+% --- Referencing (APA 7) ---
+\usepackage[american]{babel}   % Applies APA language conventions
+\usepackage{csquotes}   % Correctly formats quotation
+\usepackage[style=apa, backend=biber]{biblatex}   % Sets the citation format
+\addbibresource{refs.bib}   % Sets the directory for \printbibliography
+
+% --- Helpful Commands ---
+\newcommand{\quickwordcount}[1]{%
+  \immediate\write18{texcount -1 -merge -sum -q #1.tex > #1-words.sum}%
+  \input{#1-words.sum}}   % Used via \quickwordcount{main}
+\title{Debrief}
+\begin{document}
+\maketitle
+
+Thank you so much for taking part in our study! Your time and effort help us better understand how the human brain processes and remembers language. Below is some information about what we are testing, how the experiment was set up, and what we hope to learn.
+
+\section{What is this study about?}
+When we learn new words, our brains don't just store them permanently right away. Instead, memories undergo a process called\endquote{consolidation}, where they are stabilized and become part of our long-term memory. Research shows that sleep plays a massive role in this process, helping our brains lock in new information.
+
+In this study, we are looking at a specific type of word structure found in Semitic languages (like Arabic or Hebrew) that uses \enquote{non-concatenative morphology}. Instead of adding things to the beginning or end of existing words like we do in English (\enquote{un-} + \enquote{grateful} = \enquote{ungrateful}), Semitic languages build words by weaving two separate parts together:
+
+    \ex The \textit{root} consists of the consonants of a word (e.g., L.F.D)\xe
+    \ex The \textit{pattern} consists of the vowels fitted around those consonants (e.g., CeCuC)\xe
+
+You learned the names of six characters. Some of these characters shared the same root (e.g., Lefud and Lufod, Hezun and Huzon, etc). We used this to show the \textit{family} of the character. Additionally, some of these characters shared the same pattern (e.g., Lefud, Hezun, Meshuk, etc). This was used to show which \textit{member} of the family that character was (father vs baby). As you will have noticed in Task 2, some characters looked very similar to the original six from the video. Accordingly, these characters also had the same root (e.g., Lafed, Lifud, etc). Furthermore, some characters also looked like fathers or babies. Therefore, they took the same pattern (Nutof and Netuf, Zukob and Zekub etc.)
+
+\section{What were we testing?}
+We want to see if a period of sleep helps people not only remember the exact cartoon characters they learned during the animation, but also whether sleep helps them to generalize that knowledge. "Generalization" is the ability to take the underlying rules (the roots and patterns) and apply them to brand-new characters. To test this, we split you into two groups:
+
+	\ex The no-sleep group learned the characters in the morning and were tested 12 hours later in the evening.\xe \ex The sleep group learned the characters in the evening, 
+	slept overnight, and were tested 12 hours later the next morning. \xe
+
+\section{What do we predict will happen?} We predict that both groups will remember the original 6 characters perfectly well in Task 1. In Task 2, we think that both groups will 
+make the correct guesses for trials using similar roots, but not patterns.
+
+Finally, we expect to see a big difference based on group in Task 3 (the rapid letter-detection task). We predict that only the sleep group will automatically recognize when a 
+character's name matches the picture. When this happens, they will be able to detect the letter more quickly. The no-sleep group may not show this automatic sensitivity because 
+their brains haven't had a chance to consolidate the underlying language rules yet.
+
+\section{Confidentiality \& Contact}
+
+All data collected in this study is entirely anonymous and confidential. Your name will never be linked to your performance scores.
+
+If you have any questions about this research, or if you would like to withdraw your data from the study, please feel free to reach out to the researcher via the Prolific 
+platform.
+
+\textbf{Thank you again for your valuable contribution to cognitive science!} \end{document}
