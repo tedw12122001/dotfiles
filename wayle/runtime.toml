@@ -1,0 +1,85 @@
+[bar]
+scale = 0.8500000238418579
+padding = 0.0
+padding-ends = 1.0
+module-gap = 1.0
+exclusive = false
+background-opacity = 0
+button-variant = "basic"
+button-bg-opacity = 0
+
+[[bar.layout]]
+monitor = "*"
+show = true
+left = ["hyprland-workspaces"]
+center = []
+right = [
+    "cpu",
+    "microphone",
+    "volume",
+    "brightness",
+    "bluetooth",
+    "network",
+    "battery",
+    "notifications",
+    "weather",
+    "clock",
+    "systray",
+]
+
+[styling]
+theme-provider = "matugen"
+matugen-scheme = "expressive"
+matugen-source-color = 1
+
+[styling.palette]
+bg = "#232831"
+surface = "#2e3440"
+elevated = "#39404f"
+fg = "#cdcecf"
+fg-muted = "#7e8188"
+primary = "#77f8fee1"
+red = "#ffffff"
+yellow = "#ffffff"
+green = "#ffffff"
+blue = "#ffffff"
+
+[modules.bluetooth]
+label-show = false
+
+[modules.brightness]
+label-show = false
+
+[modules.clock]
+icon-color = "status-success"
+label-color = "status-success"
+
+[modules.cpu]
+poll-interval-ms = 3000
+format = "{{ temp_c }}°C"
+
+[modules.hyprland-workspaces]
+min-workspace-count = 3
+workspace-padding = 1.5
+
+[modules.microphone]
+label-show = false
+
+[modules.network]
+icon-color = "status-success"
+icon-bg-color = "fg-default"
+label-show = false
+
+[modules.notifications]
+label-show = false
+
+[modules.volume]
+label-show = false
+
+[modules.weather]
+location = "Liverpool"
+icon-color = "status-success"
+label-color = "status-success"
+
+[wallpaper]
+engine-enabled = false
