@@ -16,14 +16,18 @@
   discord
   git
   gotop
+  grim   # Screenshots
   hyprpaper
   hyprpolkitagent
+  kdePackages.gwenview   # Image viewer
   kitty
   libnotify   # Create test notifications.
   micro
   miktex
   nautilus
+  neural-amp-modeler-lv2
   qbittorrent
+  reaper
   rofi
   spotify
   stremio-linux-shell
@@ -90,21 +94,32 @@
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
-    enable            = true;
-    alsa.enable       = true;
-    alsa.support32Bit = true;
-    pulse.enable      = true;
-    };
-
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true; # Required for yabridge/wine VST bridging
+    jack.enable = true;
+    wireplumber.enable = true;
+    extraConfig.pipewire."92-low-latency" = {
+   	 "context.properties" = {
+	     "default.clock.rate" = 48000;       # Fixed rate avoids resampling latency
+	     "default.clock.quantum" = 128;      # ~5ms latency at 48kHz
+	     "default.clock.min-quantum" = 32;   # Allows top-tier interfaces to achieve ~1.5ms
+	     "default.clock.max-quantum" = 512;
+	   };
+  	};
+ };
+  security.pam.loginLimits = [
+    { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }];
+  
   # Set default command shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;  
-
+  
   # User.
   users.users.ted = {
     isNormalUser = true;
     description  = "ted";
-    extraGroups  = [ "networkmanager" "wheel" ];
+    extraGroups  = [ "networkmanager" "wheel" "audio" ];
   };
 
   # Firefox.

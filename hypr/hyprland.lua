@@ -46,7 +46,7 @@ hl.config({
             active_border   = {colors = {"rgba(159,255,255,0.75)"}},
             inactive_border = "rgba(595959aa)"
         },
-        resize_on_border    = false,
+        resize_on_border    = true,
         allow_tearing       = false,
         layout              = "dwindle"
     },
@@ -163,6 +163,7 @@ hl.bind(mainMod   .. " + T", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod   .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod   .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod   .. " + SPACE", hl.dsp.exec_cmd("rofi -show drun -show-icons"))
+hl.bind(mainMod   .. " + P", hl.dsp.exec_cmd("grim"))
 
 -- Shift focus 
 hl.bind(mainMod   .. " + left",  hl.dsp.focus({ direction = "left" }))
