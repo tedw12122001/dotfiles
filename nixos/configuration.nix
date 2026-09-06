@@ -17,7 +17,7 @@
   git
   gotop
   grim   # Screenshots
-  hyprpaper
+  # hyprpaper
   hyprpolkitagent
   kdePackages.gwenview   # Image viewer
   kitty
@@ -139,6 +139,7 @@
   # Global theme.
   stylix = {
     enable = true; 
+    autoEnable = true;
     image = ./7.jpg; 
     base16Scheme = "${pkgs.base16-schemes}/share/themes/helios.yaml";
   };
