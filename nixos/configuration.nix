@@ -22,7 +22,6 @@
   kdePackages.gwenview   # Image viewer
   kitty
   libnotify   # Create test notifications.
-  micro
   miktex
   nautilus
   neural-amp-modeler-lv2
@@ -132,9 +131,17 @@
   services.flatpak.enable = true;
   # The following is then required: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && flatpak update"
 
+  # Font.
   fonts.packages = with pkgs; [
   nerd-fonts.jetbrains-mono
   ];
+
+  # Global theme.
+  stylix = {
+    enable = true; 
+    image = ./7.jpg; 
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/helios.yaml";
+  };
   
   system.stateVersion = "26.05"; 
 

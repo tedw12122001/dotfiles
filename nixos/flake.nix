@@ -2,15 +2,22 @@
   description = "A very basic flake";
   
   inputs = {
-  nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-  home-manager = {
-    url = "github:nix-community/home-manager";
-    inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
-};
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, stylix, ... }:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
@@ -19,14 +26,17 @@
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
-          modules = [ ./configuration.nix ];
-        };
-      };
-      homeConfigurations = {
-        ted = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
           modules = [ 
-            ./home.nix
+            ./configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.ted = { pkgs, config, ... }: {
+                imports = [ ./home.nix ];
+              };
+            }
+            stylix.nixosModules.stylix
           ];
         };
       };
