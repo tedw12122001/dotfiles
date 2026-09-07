@@ -15,7 +15,7 @@ in
   programs.home-manager.enable = true;
   
   xdg.configFile = {
-    "hypr".source   = symlink "${dotfiles}/hypr";
+    # "hypr".source   = symlink "${dotfiles}/hypr";
     "rofi".source   = symlink "${dotfiles}/rofi";
     # "kitty".source  = symlink "${dotfiles}/kitty";
     "wayle".source  = symlink "${dotfiles}/wayle";
@@ -57,6 +57,9 @@ in
     enable = true;
   };
   
+  # imports = [
+  #   ./hyprland.nix  
+  # ];
 
 }
 

@@ -1,13 +1,15 @@
+# ~/dotfiles/nixos/hyprland.nix
 { config, pkgs, ... }:
 
 {
   wayland.windowManager.hyprland = {
     enable = true;
     
+    # Set the config type to lua
     configType = "lua";
     
+    # Settings converted to Nix attrset
     settings = {
-
       # ---- MONITORS ----
       monitor = [
         {
@@ -17,6 +19,13 @@
           scale = 2;
         }
       ];
+      
+      # ---- MY PROGRAMS ----
+      # Define variables for use in keybindings
+      "$terminal" = "kitty";
+      "$fileManager" = "nautilus";
+      "$menu" = "hyprlauncher";
+      "$browser" = "firefox";
       
       # ---- LOOK AND FEEL ----
       general = {
@@ -98,111 +107,73 @@
           value = "30";
         }
       ];
+      
+      # ---- KEYBINDINGS ----
+      bind = [
+        # General
+        "$mod, W, killactive"
+        "$mod SHIFT, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
+        "$mod, F, fullscreen"
+        "$mod, O, togglesplit"
+        "$mod, V, togglefloating"
+        
+        # Apps
+        "$mod, T, exec, $terminal"
+        "$mod, E, exec, $fileManager"
+        "$mod, B, exec, $browser"
+        "$mod, SPACE, exec, rofi -show drun -show-icons"
+        ", Print, exec, grim"  # Screenshot
+        
+        # Shift focus
+        "$mod, left, movefocus, l"
+        "$mod, right, movefocus, r"
+        "$mod, up, movefocus, u"
+        "$mod, down, movefocus, d"
+        
+        # Workspaces (1-10)
+        "$mod, 1, workspace, 1"
+        "$mod, 2, workspace, 2"
+        "$mod, 3, workspace, 3"
+        "$mod, 4, workspace, 4"
+        "$mod, 5, workspace, 5"
+        "$mod, 6, workspace, 6"
+        "$mod, 7, workspace, 7"
+        "$mod, 8, workspace, 8"
+        "$mod, 9, workspace, 9"
+        "$mod, 0, workspace, 10"
+        
+        # Move windows to workspaces (1-10)
+        "$mod SHIFT, 1, movetoworkspace, 1"
+        "$mod SHIFT, 2, movetoworkspace, 2"
+        "$mod SHIFT, 3, movetoworkspace, 3"
+        "$mod SHIFT, 4, movetoworkspace, 4"
+        "$mod SHIFT, 5, movetoworkspace, 5"
+        "$mod SHIFT, 6, movetoworkspace, 6"
+        "$mod SHIFT, 7, movetoworkspace, 7"
+        "$mod SHIFT, 8, movetoworkspace, 8"
+        "$mod SHIFT, 9, movetoworkspace, 9"
+        "$mod SHIFT, 0, movetoworkspace, 10"
+        
+        # Volume and brightness
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
+        ", XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+      ];
+      
+      # Mouse bindings
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
+      ];
+      
+      # ---- WINDOW RULES ----
+      windowrule = [
+        "suppressevent maximize, .*"  # Ignore maximize requests
+        "nofocus, ^$, 0x0"           # Fix dragging issues with XWayland
+      ];
     };
-    
-    # ---- EXTRA CONFIG FOR LUA-SPECIFIC FEATURES ----
-    extraConfig = ''
-      -- ---- MY PROGRAMS ----
-      local terminal    = "kitty"
-      local fileManager = "nautilus"
-      local menu        = "hyprlauncher"
-      local browser     = "firefox"
-      
-      -- ---- AUTOSTART ----
-      hl.on("hyprland.start", function () 
-         hl.exec_cmd(terminal)
-         hl.exec_cmd("nm-applet")
-         hl.exec_cmd("wayle panel start")
-         hl.exec_cmd("hyprpaper")
-         hl.exec_cmd("blanket")
-       end)
-      
-      -- ---- Animations ----
-      hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } })
-      hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1}    } })
-      hl.curve("linear",         { type = "bezier", points = { {0, 0},       {1, 1}       } })
-      hl.curve("almostLinear",   { type = "bezier", points = { {0.5, 0.5},   {0.75, 1}    } })
-      hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1}     } })
-      hl.curve("easy",           { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
-      
-      hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
-      hl.animation({ leaf = "border",        enabled = true,  speed = 5.39, bezier = "easeOutQuint" })
-      hl.animation({ leaf = "windows",       enabled = true,  speed = 4.79, spring = "easy" })
-      hl.animation({ leaf = "windowsIn",     enabled = true,  speed = 4.1,  spring = "easy",         style = "popin 87%" })
-      hl.animation({ leaf = "windowsOut",    enabled = true,  speed = 1.49, bezier = "linear",       style = "popin 87%" })
-      hl.animation({ leaf = "fadeIn",        enabled = true,  speed = 1.73, bezier = "almostLinear" })
-      hl.animation({ leaf = "fadeOut",       enabled = true,  speed = 1.46, bezier = "almostLinear" })
-      hl.animation({ leaf = "fade",          enabled = true,  speed = 3.03, bezier = "quick" })
-      hl.animation({ leaf = "layers",        enabled = true,  speed = 3.81, bezier = "easeOutQuint" })
-      hl.animation({ leaf = "layersIn",      enabled = true,  speed = 4,    bezier = "easeOutQuint", style = "fade" })
-      hl.animation({ leaf = "layersOut",     enabled = true,  speed = 1.5,  bezier = "linear",       style = "fade" })
-      hl.animation({ leaf = "fadeLayersIn",  enabled = true,  speed = 1.79, bezier = "almostLinear" })
-      hl.animation({ leaf = "fadeLayersOut", enabled = true,  speed = 1.39, bezier = "almostLinear" })
-      hl.animation({ leaf = "workspaces",    enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
-      hl.animation({ leaf = "workspacesIn",  enabled = true,  speed = 1.21, bezier = "almostLinear", style = "fade" })
-      hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
-      hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "quick" })
-      
-      -- ---- KEYBINDINGS ----
-      local mainMod   = "SUPER" 
-      local secondMod = "SHIFT + SUPER"
-      
-      -- General
-      hl.bind(mainMod   .. " + W", hl.dsp.window.close())
-      hl.bind(secondMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
-      hl.bind(mainMod   .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
-      hl.bind(mainMod   .. " + O", hl.dsp.layout("togglesplit"))   
-      hl.bind(mainMod   .. " + V", hl.dsp.window.float({ action = "toggle" }))
-      
-      -- Apps
-      hl.bind(mainMod   .. " + T", hl.dsp.exec_cmd(terminal))
-      hl.bind(mainMod   .. " + E", hl.dsp.exec_cmd(fileManager))
-      hl.bind(mainMod   .. " + B", hl.dsp.exec_cmd(browser))
-      hl.bind(mainMod   .. " + SPACE", hl.dsp.exec_cmd("rofi -show drun -show-icons"))
-      hl.bind(mainMod   .. " + P", hl.dsp.exec_cmd("grim"))
-      
-      -- Shift focus 
-      hl.bind(mainMod   .. " + left",  hl.dsp.focus({ direction = "left" }))
-      hl.bind(mainMod   .. " + right", hl.dsp.focus({ direction = "right" }))
-      hl.bind(mainMod   .. " + up",    hl.dsp.focus({ direction = "up" }))
-      hl.bind(mainMod   .. " + down",  hl.dsp.focus({ direction = "down" }))
-      
-      -- Workspaces
-      for i = 1, 10 do
-          local key = i % 10
-          hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i}))
-          hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
-      end
-      
-      -- Volume and brightness
-      hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-      hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
-      hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),     { locked = true, repeating = true })
-      hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),   { locked = true, repeating = true })
-      hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),                  { locked = true, repeating = true })
-      hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),                  { locked = true, repeating = true })
-      
-      -- ---- WINDOWS AND WORKSPACES ----
-      -- Ignore maximize requests
-      hl.window_rule({
-          name           = "suppress-maximize-events",
-          match          = { class = ".*" },
-          suppress_event = "maximize"
-      })
-      
-      -- Fix dragging issues with XWayland
-      hl.window_rule({
-          name  = "fix-xwayland-drags",
-          match = {
-              class      = "^$",
-              title      = "^$",
-              xwayland   = true,
-              float      = true,
-              fullscreen = false,
-              pin        = false
-          },
-          no_focus = true
-      })
-    '';
   };
 }
