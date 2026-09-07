@@ -15,9 +15,6 @@ in
   programs.home-manager.enable = true;
   
   xdg.configFile = {
-    # "hypr".source   = symlink "${dotfiles}/hypr";
-    "rofi".source   = symlink "${dotfiles}/rofi";
-    # "kitty".source  = symlink "${dotfiles}/kitty";
     "wayle".source  = symlink "${dotfiles}/wayle";
   };
 
@@ -55,6 +52,18 @@ in
   #############
   programs.kitty = {
     enable = true;
+  };
+
+  ############
+  ### Rofi ###
+  ############
+  programs.rofi = {
+    enable = true;
+    extraConfig = {
+      show-icons = true;
+      modi = "drun,run,window";
+    };
+    #theme = "~/.config/rofi/Ted.rasi";
   };
   
   # imports = [
