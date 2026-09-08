@@ -133,24 +133,42 @@
   # Global colour scheme.
   stylix = {
     enable = true;
-    image = ./Wallpaper.png;
+    image = ./Wallpaper2.jpg;
     base16Scheme = {
-      base00 = "1d2021";
-      base01 = "383c3e"; 
-      base02 = "53585b";
-      base03 = "6f7579"; 
-      base04 = "cdcdcd";
-      base05 = "d5d5d5"; 
-      base06 = "dddddd"; 
-      base07 = "e5e5e5";
-      base08 = "d72638";
-      base09 = "eb8413";
-      base0A = "f19d1a";
-      base0B = "88b92d";
-      base0C = "1ba595";
-      base0D = "1e8bac";
-      base0E = "be4264";
-      base0F = "c85e0d";
+      # base00 = "#1d2021";
+      # base01 = "#383c3e"; 
+      # base02 = "#53585b";
+      # base03 = "#6f7579"; 
+      # base04 = "#cdcdcd";
+      # base05 = "#d5d5d5"; 
+      # base06 = "#dddddd"; 
+      # base07 = "#e5e5e5";
+      # base08 = "#d72638";
+      # base09 = "#eb8413";
+      # base0A = "#f19d1a";
+      # base0B = "#88b92d";
+      # base0C = "#1ba595";
+      # base0D = "#1e8bac";
+      # base0E = "#be4264";
+      # base0F = "#c85e0d";
+      
+      # Autumn
+      base00 = "#2C1A0E";  
+      base01 = "#3D2618";   
+      base02 = "#5C3A24";   
+      base03 = "#8B5A3A";  
+      base04 = "#C4926A";  
+      base05 = "#E8C9A0";   
+      base06 = "#F5E1C8";   
+      base07 = "#FDF0E0";  
+      base08 = "#D45A2E";  
+      base09 = "#E8833A";  
+      base0A = "#F0A54A";  
+      base0B = "#7BA84A";  
+      base0C = "#5A9E8C";  
+      base0D = "#4A8DB7";   
+      base0E = "#A67B5B";  
+      base0F = "#C47A4A";  
     };
   };
 
