@@ -137,7 +137,7 @@ in
         ueberzug_scale = 0.5;    
       };
       opener.edit = [{
-        run   = "code %s";
+        run   = "micro %s";
         block = true;        
       }];
     };
