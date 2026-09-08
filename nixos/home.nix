@@ -105,17 +105,10 @@ in
         };
       };
 
-      # theme = {
-      #   builtin           = "Tokyo-Night";
-      #   mode              = "dark";
-      #   source            = "custom";
-      #   wallpaper_scheme  = "dysfunctional";
-      # };
-
       wallpaper = {
-        directory    = "/home/ted/dotfiles";
-        default.path = "/home/ted/dotfiles/Wallpaper.png";
-        last.path    = "/home/ted/dotfiles/Wallpaper.png";
+        directory    = "/home/ted/dotfiles/nixos";
+        default.path = "/home/ted/dotfiles/nixos/Wallpaper.png";
+        last.path    = "/home/ted/dotfiles/nixos/Wallpaper.png";
       };
 
       widget = {
@@ -137,21 +130,18 @@ in
         show_hidden    = true;
         show_symlink   = true;
       };
+      preview = {
+        image_delay    = 100;  
+        image_filter   = "nearest"; 
+        image_quality  = 85;   
+        ueberzug_scale = 0.5;    
+      };
       opener.edit = [{
-        run   = "micro %s";
+        run   = "code %s";
         block = true;        
       }];
     };
   };
-
-  #############
-  ### Micro ###
-  #############
-  # programs.micro = {
-  # 	enable = true;
-  # 	clipboard = external;
-  # };
-
 
 }
 

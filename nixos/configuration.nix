@@ -131,10 +131,27 @@
   services.flatpak.enable = true;
   # The following is then required: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && flatpak update"
   
+  # Global colour scheme.
   stylix = {
     enable = true;
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-    image = ./Wallpaper.png;
+    base16Scheme = {
+      base00 = "1d2021";
+      base01 = "383c3e"; 
+      base02 = "53585b";
+      base03 = "6f7579"; 
+      base04 = "cdcdcd";
+      base05 = "d5d5d5"; 
+      base06 = "dddddd"; 
+      base07 = "e5e5e5";
+      base08 = "d72638";
+      base09 = "eb8413";
+      base0A = "f19d1a";
+      base0B = "88b92d";
+      base0C = "1ba595";
+      base0D = "1e8bac";
+      base0E = "be4264";
+      base0F = "c85e0d";
+    };
   };
 
   system.stateVersion = "26.05"; 
