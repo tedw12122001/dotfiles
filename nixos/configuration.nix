@@ -33,7 +33,6 @@
   unzip
   vscode
   wget
-  yazi
   zotero
   ];
   
@@ -134,6 +133,7 @@
   # Global colour scheme.
   stylix = {
     enable = true;
+    image = ./Wallpaper.png;
     base16Scheme = {
       base00 = "1d2021";
       base01 = "383c3e"; 
