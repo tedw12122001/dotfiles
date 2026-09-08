@@ -17,23 +17,23 @@
   git
   gotop
   grim   # Screenshots
-  # hyprpaper
   hyprpolkitagent
   kdePackages.gwenview   # Image viewer
   kitty
   libnotify   # Create test notifications.
+  micro
   miktex
   nautilus
   neural-amp-modeler-lv2
+  noctalia-shell
   qbittorrent
   reaper
-  rofi
   spotify
   stremio-linux-shell
   unzip
   vscode
-  wayle
   wget
+  yazi
   zotero
   ];
   
@@ -131,6 +131,12 @@
   services.flatpak.enable = true;
   # The following is then required: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && flatpak update"
   
+  stylix = {
+    enable = true;
+    # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    image = ./Wallpaper.png;
+  };
+
   system.stateVersion = "26.05"; 
 
 }

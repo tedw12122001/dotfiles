@@ -10,9 +10,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, stylix, ... }:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
@@ -23,6 +28,7 @@
           inherit system;
           modules = [ 
             ./configuration.nix
+            stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

@@ -34,9 +34,9 @@ in
   	enable = true;
     shellAliases = {
       nixrb     = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos";
-      nixconf   = "code ~/dotfiles/nixos/configuration.nix" ;
-      hmconf    = "code ~/dotfiles/nixos/home.nix";
-      hyprconf  = "code ~/dotfiles/hypr/hyprland.lua";
+      nixconf   = "micro ~/dotfiles/nixos/configuration.nix" ;
+      hmconf    = "micro ~/dotfiles/nixos/home.nix";
+      hyprconf  = "micro ~/dotfiles/hypr/hyprland.lua";
       onbattery = "hyprctl eval 'hl.monitor({ output = \"eDP-1\", mode = \"3072x1920@60\", position = \"0x0\", scale = 2 })' && powerprofilesctl set power-saver";
       oncharge  = "hyprctl eval 'hl.monitor({ output = \"eDP-1\", mode = \"3072x1920@165\", position = \"0x0\", scale = 2 })' && powerprofilesctl set balanced";
     };
@@ -47,7 +47,7 @@ in
   #############
   programs.kitty = {
     enable    = true;
-    # themeFile = "tokyo_night_night";
+    themeFile = "tokyo_night_night";
   };
 
   ################
@@ -105,12 +105,12 @@ in
         };
       };
 
-      # theme = {
-      #   builtin           = "Tokyo-Night";
-      #   mode              = "dark";
-      #   source            = "custom";
-      #   wallpaper_scheme  = "dysfunctional";
-      # };
+      theme = {
+        builtin           = "Tokyo-Night";
+        mode              = "dark";
+        source            = "custom";
+        wallpaper_scheme  = "dysfunctional";
+      };
 
       wallpaper = {
         directory    = "/home/ted/dotfiles";
@@ -132,26 +132,13 @@ in
   ############
   programs.yazi = {
     enable    = true;
-    settings = {
-      mgr = {
-        show_hidden    = true;
-        show_symlink   = true;
-      };
-      opener.edit = [{
-        run   = "micro %s";
-        block = true;        
-      }];
-    };
-  };
-
-  #############
-  ### Micro ###
-  #############
-  # programs.micro = {
-  # 	enable = true;
-  # 	clipboard = external;
-  # };
-
-
-}
-
+    settings  = {
+      sort-by        = "natural";
+      sort-sensitive = true;
+      sort-reverse   = false;
+      sort-dir-first = true;
+      linemode       = "none";
+      show-hidden    = true;
+      show-symlink   = true;
+      yazi.opener.text = [
+  
