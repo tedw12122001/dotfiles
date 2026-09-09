@@ -34,9 +34,7 @@ in
     enable = true;
     shellAliases = {
       nixrb = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos";
-      nixconf = "code ~/dotfiles/nixos/configuration.nix";
-      hmconf = "code ~/dotfiles/nixos/home.nix";
-      hyprconf = "code ~/dotfiles/hypr/hyprland.lua";
+      nixconf = "code ~/dotfiles/nixos";
       onbattery = "hyprctl eval 'hl.monitor({ output = \"eDP-1\", mode = \"3072x1920@60\", position = \"0x0\", scale = 2 })' && powerprofilesctl set power-saver";
       oncharge = "hyprctl eval 'hl.monitor({ output = \"eDP-1\", mode = \"3072x1920@165\", position = \"0x0\", scale = 2 })' && powerprofilesctl set balanced";
     };
@@ -114,6 +112,37 @@ in
     };
   };
 
+  ############
+  ### Yazi ###
+  ############
+  programs.yazi = {
+    enable    = true;
+    settings = {
+      mgr = {
+        show_hidden = true;
+      };
+      preview = {
+      	image_delay = 100;
+      };
+      opener.edit = [{
+        run   = "code %s";
+        block = true;        
+      }];
+    };
+  };  
+
+  ##############
+  ### VSCode ###
+  ##############
+  programs.vscode = {
+  	enable = true;
+    userSettings = {
+      "files.autoSave" = "afterDelay";
+      "editor.minimap.enabled" = false;
+      " editor.stickyScroll.enabled" = false;
+    };
+  };
+
   ################
   ### Hyprland ###
   ################
@@ -121,9 +150,6 @@ in
     enable = true;
     configType = "lua";
     extraConfig = ''
-      ------------------
-      ---- MONITORS ----
-      ------------------
       hl.monitor({
           output   = "",
           mode     = "3072x1920@165",
@@ -131,33 +157,24 @@ in
           scale    = 2,
       })
 
-      ---------------------
-      ---- MY PROGRAMS ----
-      ---------------------
       local terminal    = "kitty"
       local fileManager = "nautilus"
       local menu        = "hyprlauncher"
       local browser     = "firefox"
 
-      -------------------
-      ---- AUTOSTART ----
-      -------------------
       hl.on("hyprland.start", function ()
         hl.exec_cmd(terminal)
         hl.exec_cmd("noctalia")
         hl.exec_cmd("blanket")
       end)
 
-      -----------------------
-      ---- LOOK AND FEEL ----
-      -----------------------
       hl.config({
           general = {
               gaps_in             = 5,
               gaps_out            = { top = 40, right = 20, bottom = 20, left = 20 },
               border_size         = 3,
               col = {
-                  active_border   = {colors = {"#1e8bac"}},
+                  active_border   = {colors = {"#E8833A"}},
                   inactive_border = "rgba(595959aa)"
               },
               resize_on_border    = true,
@@ -190,9 +207,6 @@ in
           },
       })
 
-      --------------------
-      ---- Animations ----
-      --------------------
       hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } })
       hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1}    } })
       hl.curve("linear",         { type = "bezier", points = { {0, 0},       {1, 1}       } })
@@ -218,9 +232,6 @@ in
       hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
       hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "quick" })
 
-      ----------------
-      ----  MISC  ----
-      ----------------
       hl.config({
           misc = {
               force_default_wallpaper = 1,
@@ -228,9 +239,6 @@ in
           },
       })
 
-      ----------------------------
-      ---- KEYBOARD AND MOUSE ----
-      ----------------------------
       hl.config({
           input = {
               kb_layout          = "gb",
@@ -251,9 +259,6 @@ in
       hl.env("XCURSOR_THEME", "Bibata-Modern-Ice")
       hl.env("XCURSOR_SIZE", "30")
 
-      ---------------------
-      ---- KEYBINDINGS ----
-      ---------------------
       local mainMod   = "SUPER"
       local secondMod = "SHIFT + SUPER"
 

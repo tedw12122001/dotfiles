@@ -33,6 +33,7 @@
   unzip
   vscode
   wget
+  yazi
   zotero
   ];
   
@@ -153,10 +154,10 @@
       # base0F = "#c85e0d";
       
       # Autumn
-      base00 = "#2C1A0E";  
-      base01 = "#3D2618";   
-      base02 = "#5C3A24";   
-      base03 = "#8B5A3A";  
+      base00 = "#1d2021";  
+      base01 = "#383c3e";   
+      base02 = "#53585b";   
+      base03 = "#6f7579";  
       base04 = "#C4926A";  
       base05 = "#E8C9A0";   
       base06 = "#F5E1C8";   
