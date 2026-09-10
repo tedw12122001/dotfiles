@@ -17,6 +17,7 @@
   git
   gotop
   grim   # Screenshots
+  guitarix
   hyprpolkitagent
   kdePackages.gwenview   # Image viewer
   kitty
@@ -26,6 +27,7 @@
   nautilus
   neural-amp-modeler-lv2
   noctalia-shell
+  pavucontrol
   qbittorrent
   reaper
   spotify
@@ -90,12 +92,12 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alsa.support32Bit = true; # Required for yabridge/wine VST bridging
+    alsa.support32Bit = true; 
+    pulse.enable = true;
     jack.enable = true;
     wireplumber.enable = true;
     extraConfig.pipewire."92-low-latency" = {
@@ -107,8 +109,8 @@
 	   };
   	};
  };
-  security.pam.loginLimits = [
-    { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }];
+  # security.pam.loginLimits = [
+  #   { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }];
   
   # Set default command shell
   programs.zsh.enable = true;

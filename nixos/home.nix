@@ -139,8 +139,15 @@ in
     userSettings = {
       "files.autoSave" = "afterDelay";
       "editor.minimap.enabled" = false;
-      " editor.stickyScroll.enabled" = false;
+      "editor.stickyScroll.enabled" = false;
     };
+    keybindings = [
+      {
+        key = "ctrl+shift+]";
+        command = "editor.unfoldRecursively";
+        when = "editorTextFocus && foldingEnabled";
+      }
+    ];
   };
 
   ################
@@ -323,4 +330,5 @@ in
       })
     '';
   };
+  
 }
