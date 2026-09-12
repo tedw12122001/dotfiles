@@ -27,15 +27,16 @@
   nautilus
   neural-amp-modeler-lv2
   noctalia-shell
-  pavucontrol
+  pavucontrol   # Audio device control
   qbittorrent
   reaper
   spotify
   stremio-linux-shell
+  thunderbird
   unzip
   vscode
   wget
-  yazi
+  whitenoise
   zotero
   ];
   
@@ -100,18 +101,27 @@
     pulse.enable = true;
     jack.enable = true;
     wireplumber.enable = true;
-    extraConfig.pipewire."92-low-latency" = {
-   	 "context.properties" = {
-	     "default.clock.rate" = 48000;       # Fixed rate avoids resampling latency
-	     "default.clock.quantum" = 128;      # ~5ms latency at 48kHz
-	     "default.clock.min-quantum" = 32;   # Allows top-tier interfaces to achieve ~1.5ms
-	     "default.clock.max-quantum" = 512;
-	   };
-  	};
+    extraConfig.jack."92-force-quantum" = {
+      "jack.properties" = {
+        "node.lock-quantum" = true;
+        "node.force-quantum" = 64;
+      };
+    };
  };
-  # security.pam.loginLimits = [
-  #   { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }];
-  
+  security.pam.loginLimits = [{ domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }];
+   environment.variables = let   # Allow DAW plugins
+    makePluginPath = format:
+      (pkgs.lib.makeSearchPath format [
+        "$HOME/.nix-profile/lib"
+        "/run/current-system/sw/lib"
+        "/etc/profiles/per-user/$USER/lib"
+      ]) + ":$HOME/.${format}";
+  in {
+    LV2_PATH = makePluginPath "lv2";
+    VST3_PATH = makePluginPath "vst3";
+    CLAP_PATH = makePluginPath "clap";
+  };
+
   # Set default command shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;  

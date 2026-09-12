@@ -43,10 +43,7 @@ in
   #############
   ### Kitty ###
   #############
-  programs.kitty = {
-    enable = true;
-    # themeFile = "tokyo_night_night";
-  };
+  programs.kitty.enable = true;
 
   ################
   ### Noctalia ###
@@ -67,13 +64,11 @@ in
         widget_order = [ "lockscreen-login-box@eDP-1" ];
         enabled = false;
         schema_version = 2;
-
         grid = {
           cell_size = 16;
           major_interval = 4;
           visible = true;
         };
-
         widget."lockscreen-login-box@eDP-1" = {
           output = "eDP-1";
           type = "login_box";
@@ -102,7 +97,6 @@ in
           };
         };
       };
-
       widget = {
         clock.format = "%H:%M - %d/%m/%y ";
         cpu.stat = "cpu_temp";
@@ -136,18 +130,20 @@ in
   ##############
   programs.vscode = {
   	enable = true;
-    userSettings = {
-      "files.autoSave" = "afterDelay";
-      "editor.minimap.enabled" = false;
-      "editor.stickyScroll.enabled" = false;
-    };
-    keybindings = [
-      {
-        key = "ctrl+shift+]";
-        command = "editor.unfoldRecursively";
-        when = "editorTextFocus && foldingEnabled";
-      }
-    ];
+    profiles.default = {
+      userSettings = {
+        "files.autoSave" = "afterDelay";
+        "editor.minimap.enabled" = false;
+        "editor.stickyScroll.enabled" = false;
+      };
+      keybindings = [
+        {
+          key = "ctrl+alt+}";
+          command = "editor.unfoldRecursively";
+          when = "editorTextFocus && foldingEnabled";
+        }
+      ];
+    };  
   };
 
   ################
@@ -272,6 +268,7 @@ in
       -- General
       hl.bind(mainMod   .. " + W", hl.dsp.window.close())
       hl.bind(secondMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+      hl.bind(mainMod   .. " + N", hl.dsp.exec_cmd("code ~/dotfiles/nixos"))
       hl.bind(mainMod   .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
       hl.bind(mainMod   .. " + O", hl.dsp.layout("togglesplit"))
       hl.bind(mainMod   .. " + V", hl.dsp.window.float({ action = "toggle" }))

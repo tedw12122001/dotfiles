@@ -15,9 +15,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    whitenoise = {
+      url = "github:clearcmos/whitenoise-cli";
+      inputs.nixpkgs.follows = "nixpkgs";  
+    };
+
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, ... }:
+  outputs = { self, nixpkgs, home-manager, stylix, whitenoise, ... }:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
@@ -37,6 +42,7 @@
                 imports = [ ./home.nix ];
               };
             }
+            { nixpkgs.overlays = [ whitenoise.overlays.default ]; } 
           ];
         };
       };
