@@ -44,6 +44,11 @@ in
   ### Kitty ###
   #############
   programs.kitty.enable = true;
+  programs.kitty.extraConfig = ''
+    background_opacity 0.80
+    cursor_trail 10
+    map ctrl+backspace send_text all \x17
+  '';
 
   ################
   ### Noctalia ###
@@ -168,14 +173,14 @@ in
       hl.on("hyprland.start", function ()
         hl.exec_cmd(terminal)
         hl.exec_cmd("noctalia")
-        hl.exec_cmd("blanket")
+        hl.exec_cmd("whitenoise --volume 10")
       end)
 
       hl.config({
           general = {
               gaps_in             = 5,
               gaps_out            = { top = 40, right = 20, bottom = 20, left = 20 },
-              border_size         = 3,
+              border_size         = 2,
               col = {
                   active_border   = {colors = {"#E8833A"}},
                   inactive_border = "rgba(595959aa)"
@@ -188,7 +193,7 @@ in
               preserve_split      = true,
           },
           decoration = {
-              rounding            = 10,
+              rounding            = 5,
               rounding_power      = 2,
               active_opacity      = 1.0,
               inactive_opacity    = 1.0,
