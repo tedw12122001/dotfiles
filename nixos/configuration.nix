@@ -14,6 +14,7 @@
   audacious   # MP3 Player
   blanket   # White noise generator
   discord
+  fresh-editor
   git
   gotop
   grim   # Screenshots
@@ -28,12 +29,15 @@
   neural-amp-modeler-lv2
   noctalia-shell
   pavucontrol   # Audio device control
+  pdf-cli
   qbittorrent
   reaper
   spotify
   stremio-linux-shell
+  texlab   # latex lsp.
   thunderbird
   unzip
+  vim
   vscode
   wget
   whitenoise
