@@ -45,6 +45,14 @@ programs.zsh = {
         }'';
 };
 
+###########
+### Fzf ###
+###########
+programs.fzf = {
+    enable               = true;
+    enableZshIntegration = true;
+    };
+
 #############
 ### Fresh ###
 #############
@@ -145,11 +153,18 @@ programs.noctalia = {
                 };
             };
         };
+        widget.workspaces = {
+            focused_color  = "on_surface";
+            occupied_color = "on_surface";
+        };
         widget = {
             clock.format       = "%H:%M - %d/%m/%y ";
-            cpu.stat           = "cpu_temp";
+            cpu.show_value     = false;
             network.show_label = false;
             volume.show_label  = false;
+        };
+        osd.kinds = {
+            media = false;
         };
     };
 };
@@ -194,6 +209,18 @@ programs.vscode = {
     };  
 };
 
+#################
+### Superfile ###
+#################
+programs.superfile = {
+    enable = true;
+    settings = {
+        transparent_background = true;
+        editor = "fresh";
+        theme = "Ted";
+    };
+};
+
 ################
 ### Hyprland ###
 ################
@@ -225,7 +252,7 @@ wayland.windowManager.hyprland = {
                 border_size         = 2,
                 layout = "master",
                 col = {
-                    active_border   = {colors = {"#E8833A"}},
+                    active_border   = {colors = {"#c8d0d2"}},
                     inactive_border = "rgba(595959aa)"
                 },
                 resize_on_border    = true,
@@ -324,7 +351,8 @@ wayland.windowManager.hyprland = {
         -- General
         hl.bind(mainMod   .. " + W", hl.dsp.window.close())
         hl.bind(secondMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
-        hl.bind(mainMod   .. " + N", hl.dsp.exec_cmd("kitty fresh ~/dotfiles/nixos/home.nix"))
+        hl.bind(mainMod   .. " + H", hl.dsp.exec_cmd("kitty fresh ~/dotfiles/nixos/home.nix"))
+        hl.bind(mainMod   .. " + C", hl.dsp.exec_cmd("kitty fresh ~/dotfiles/nixos/configuration.nix"))
         hl.bind(mainMod   .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
         hl.bind(mainMod   .. " + O", hl.dsp.layout("togglesplit"))
         hl.bind(mainMod   .. " + V", hl.dsp.window.float({ action = "toggle" }))

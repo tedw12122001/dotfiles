@@ -12,9 +12,10 @@
   # Packages. 
   environment.systemPackages = with pkgs; [
   audacious   # MP3 Player
-  blanket   # White noise generator
+  auto-cpufreq
   discord
   fresh-editor
+  fzf
   git
   gotop
   grim   # Screenshots
@@ -34,10 +35,10 @@
   reaper
   spotify
   stremio-linux-shell
+  superfile
   texlab   # latex lsp.
   thunderbird
   unzip
-  vim
   vscode
   wget
   whitenoise
@@ -81,7 +82,7 @@
   # Keyboard.
   services.xserver.xkb.layout  = "gb";
   console.keyMap = "uk";
-
+  
   # Enable Bluetooth.
   hardware.bluetooth = {
     enable      = true;
@@ -89,7 +90,8 @@
   };
 
   # Enable power profiles. 
-  services.power-profiles-daemon.enable = true;
+  # services.power-profiles-daemon.enable = true;
+  services.auto-cpufreq.enable = true;
 
   # Allows wayle to detect battery level.
   services.upower.enable = true;
@@ -171,22 +173,39 @@
       # base0F = "#c85e0d";
       
       # Autumn
-      base00 = "#1d2021";  
-      base01 = "#383c3e";   
-      base02 = "#53585b";   
-      base03 = "#6f7579";  
-      base04 = "#C4926A";  
-      base05 = "#E8C9A0";   
-      base06 = "#F5E1C8";   
-      base07 = "#FDF0E0";  
-      base08 = "#D45A2E";  
-      base09 = "#E8833A";  
-      base0A = "#F0A54A";  
-      base0B = "#7BA84A";  
-      base0C = "#5A9E8C";  
-      base0D = "#4A8DB7";   
-      base0E = "#A67B5B";  
-      base0F = "#C47A4A";  
+      # base00 = "#1d2021";  
+      # base01 = "#383c3e";   
+      # base02 = "#53585b";   
+      # base03 = "#6f7579";  
+      # base04 = "#C4926A";  
+      # base05 = "#E8C9A0";   
+      # base06 = "#F5E1C8";   
+      # base07 = "#FDF0E0";  
+      # base08 = "#D45A2E";  
+      # base09 = "#E8833A";  
+      # base0A = "#F0A54A";  
+      # base0B = "#7BA84A";  
+      # base0C = "#5A9E8C";  
+      # base0D = "#4A8DB7";   
+      # base0E = "#A67B5B";  
+      # base0F = "#C47A4A";  
+
+      base00 = "#141a20";
+      base01 = "#1c242c"; 
+      base02 = "#4a5763";
+      base03 = "#75838e";
+      base04 = "#8a97a0";  
+      base05 = "#c8d0d2"; 
+      base06 = "#dde3e3"; 
+      base07 = "#eef1ef";  
+      base08 = "#d72638"; 
+      base09 = "#eb8413"; 
+      base0A = "#f19d1a"; 
+      base0B = "#88b92d"; 
+      base0C = "#1ba595"; 
+      base0D = "#1e8bac"; 
+      base0E = "#be4264"; 
+      base0F = "#c85e0d"; 
     };
   };
 
