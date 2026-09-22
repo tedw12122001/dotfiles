@@ -17,7 +17,7 @@ programs.home-manager.enable = true;
 home.sessionVariables = {};
 
 imports = [
-    ~/dotfiles/packages/rmpc.nix
+    ~/dotfiles/nixos/packages/rmpc.nix
 ];
  
 ##############
