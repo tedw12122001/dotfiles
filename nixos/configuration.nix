@@ -6,209 +6,192 @@
       ./hardware-configuration.nix
     ];
 
-  # Flakes.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+# Flakes.
+nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
-  # Packages. 
-  environment.systemPackages = with pkgs; [
-  audacious   # MP3 Player
-  auto-cpufreq
-  discord
-  fresh-editor
-  fzf
-  git
-  gotop
-  grim   # Screenshots
-  guitarix
-  hyprpolkitagent
-  kdePackages.gwenview   # Image viewer
-  kitty
-  libnotify   # Create test notifications.
-  micro
-  miktex
-  nautilus
-  neural-amp-modeler-lv2
-  noctalia-shell
-  pavucontrol   # Audio device control
-  pdf-cli
-  qbittorrent
-  reaper
-  spotify
-  stremio-linux-shell
-  superfile
-  texlab   # latex lsp.
-  thunderbird
-  unzip
-  vscode
-  wget
-  whitenoise
-  zotero
-  ];
+# Packages. 
+environment.systemPackages = with pkgs; [
+audacious   # MP3 Player
+auto-cpufreq
+devenv
+discord
+emacs
+fresh-editor
+fzf
+git
+gotop
+grim   # Screenshots
+guitarix
+hyprpolkitagent
+kdePackages.gwenview   # Image viewer
+kitty
+libnotify   # Create test notifications.
+miktex
+mpd   # Music daemon for rmpc.
+nautilus
+neural-amp-modeler-lv2
+noctalia-shell
+pavucontrol   # Audio device control
+pdf-cli
+qbittorrent
+reaper
+rmpc
+spotify
+stremio-linux-shell
+superfile
+texlab   # latex lsp.
+unzip
+wget
+whitenoise
+zotero
+];
   
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-   boot.loader.systemd-boot.configurationLimit = 8;   # Number of generations at boot.
-  boot.loader.efi.canTouchEfiVariables = true;
+# Bootloader.
+boot.loader.systemd-boot.enable = true;
+boot.loader.systemd-boot.configurationLimit = 8;   # Number of generations at boot.
+boot.loader.efi.canTouchEfiVariables = true;
 
-  # Networking.
-  networking.hostName = "nixos"; 
-  networking.networkmanager.enable = true;
+# Networking.
+networking.hostName = "nixos"; 
+networking.networkmanager.enable = true;
 
-  # Some nonsense setting I need for vpn.
-  services.resolved.enable = true;
-  networking.resolvconf.enable = false;
-  networking.networkmanager.dns = "systemd-resolved"; 
+# Some nonsense setting I need for vpn.
+services.resolved.enable = true;
+networking.resolvconf.enable = false;
+networking.networkmanager.dns = "systemd-resolved"; 
 
-  # Time Zone.
-  time.timeZone = "Europe/London";
+# Time Zone.
+time.timeZone = "Europe/London";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
+# Select internationalisation properties.
+i18n.defaultLocale = "en_GB.UTF-8";
 
-  # Enable Hyprland.
-  programs.hyprland = {
-   enable          = true;
-   xwayland.enable = true;
-  };
+# Enable Hyprland.
+programs.hyprland = {
+    enable          = true;
+    xwayland.enable = true;
+};
 
-  # Display Manager.
-  services.displayManager.gdm.enable = true;
-  # services.desktopManager.gnome.enable = true;
+# Display Manager.
+services.displayManager.gdm.enable = true;
   
-  # Allow Screen Sharing.     
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+# Allow Screen Sharing.     
+xdg.portal.enable = true;
+xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
-  # Keyboard.
-  services.xserver.xkb.layout  = "gb";
-  console.keyMap = "uk";
+# Keyboard.
+services.xserver.xkb.layout  = "gb";
+console.keyMap = "uk";
   
-  # Enable Bluetooth.
-  hardware.bluetooth = {
+# Enable Bluetooth.
+hardware.bluetooth = {
     enable      = true;
     powerOnBoot = true;
-  };
+};
 
-  # Enable power profiles. 
-  # services.power-profiles-daemon.enable = true;
-  services.auto-cpufreq.enable = true;
+# Enable power profiles. 
+# services.power-profiles-daemon.enable = true;
+services.auto-cpufreq.enable = true;
 
-  # Allows wayle to detect battery level.
-  services.upower.enable = true;
+# Allows noctalia to detect battery level.
+services.upower.enable = true;
 
-  # Printing.
-  services.printing.enable = true;
+# Printing.
+services.printing.enable = true;
 
-  # Enable sound with pipewire.
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true; 
-    pulse.enable = true;
-    jack.enable = true;
+# Enable sound with pipewire.
+security.rtkit.enable = true;
+services.pipewire = { 
+    enable             = true;
+    alsa.enable        = true;
+    alsa.support32Bit  = true; 
+    pulse.enable       = true;
+    jack.enable        = true;
     wireplumber.enable = true;
     extraConfig.jack."92-force-quantum" = {
-      "jack.properties" = {
-        "node.lock-quantum" = true;
-        "node.force-quantum" = 64;
-      };
+        "jack.properties" = {
+            "node.lock-quantum"  = true;
+            "node.force-quantum" = 64;
+        };
     };
- };
-  security.pam.loginLimits = [{ domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }];
-   environment.variables = let   # Allow DAW plugins
-    makePluginPath = format:
-      (pkgs.lib.makeSearchPath format [
-        "$HOME/.nix-profile/lib"
-        "/run/current-system/sw/lib"
-        "/etc/profiles/per-user/$USER/lib"
-      ]) + ":$HOME/.${format}";
-  in {
-    LV2_PATH = makePluginPath "lv2";
-    VST3_PATH = makePluginPath "vst3";
-    CLAP_PATH = makePluginPath "clap";
-  };
+};
 
-  # Set default command shell
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;  
+security.pam.loginLimits = [{ domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }];
+environment.variables = let   # Allow DAW plugins
+    makePluginPath = format:
+        (pkgs.lib.makeSearchPath format [
+            "$HOME/.nix-profile/lib"
+            "/run/current-system/sw/lib"
+            "/etc/profiles/per-user/$USER/lib"
+      ]) + ":$HOME/.${format}";
+    in {
+        LV2_PATH = makePluginPath "lv2";
+        VST3_PATH = makePluginPath "vst3";
+        CLAP_PATH = makePluginPath "clap";
+    };
+
+# Set default command shell
+programs.zsh.enable = true;
+users.defaultUserShell = pkgs.zsh;  
   
-  # User.
-  users.users.ted = {
+# User.
+users.users.ted = {
     isNormalUser = true;
     description  = "ted";
     extraGroups  = [ "networkmanager" "wheel" "audio" ];
-  };
+};
 
-  # Firefox.
-  programs.firefox.enable = true;
+# Firefox.
+programs.firefox.enable = true;
 
-  # Allow Unfree Packages
-  nixpkgs.config.allowUnfree = true;
+# Allow Unfree Packages
+nixpkgs.config.allowUnfree = true;
 
-  # Allow flatpacks.
-  services.flatpak.enable = true;
-  # The following is then required: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && flatpak update"
+# Allow flatpacks.
+services.flatpak.enable = true;
+# The following is then required: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && flatpak update"
   
-  # Global colour scheme.
-  stylix = {
+# Global colour scheme.
+stylix = {
     enable = true;
     image = ./Wallpaper2.jpg;
     base16Scheme = {
-      # base00 = "#1d2021";
-      # base01 = "#383c3e"; 
-      # base02 = "#53585b";
-      # base03 = "#6f7579"; 
-      # base04 = "#cdcdcd";
-      # base05 = "#d5d5d5"; 
-      # base06 = "#dddddd"; 
-      # base07 = "#e5e5e5";
-      # base08 = "#d72638";
-      # base09 = "#eb8413";
-      # base0A = "#f19d1a";
-      # base0B = "#88b92d";
-      # base0C = "#1ba595";
-      # base0D = "#1e8bac";
-      # base0E = "#be4264";
-      # base0F = "#c85e0d";
-      
-      # Autumn
-      # base00 = "#1d2021";  
-      # base01 = "#383c3e";   
-      # base02 = "#53585b";   
-      # base03 = "#6f7579";  
-      # base04 = "#C4926A";  
-      # base05 = "#E8C9A0";   
-      # base06 = "#F5E1C8";   
-      # base07 = "#FDF0E0";  
-      # base08 = "#D45A2E";  
-      # base09 = "#E8833A";  
-      # base0A = "#F0A54A";  
-      # base0B = "#7BA84A";  
-      # base0C = "#5A9E8C";  
-      # base0D = "#4A8DB7";   
-      # base0E = "#A67B5B";  
-      # base0F = "#C47A4A";  
-
-      base00 = "#141a20";
-      base01 = "#1c242c"; 
-      base02 = "#4a5763";
-      base03 = "#75838e";
-      base04 = "#8a97a0";  
-      base05 = "#c8d0d2"; 
-      base06 = "#dde3e3"; 
-      base07 = "#eef1ef";  
-      base08 = "#d72638"; 
-      base09 = "#eb8413"; 
-      base0A = "#f19d1a"; 
-      base0B = "#88b92d"; 
-      base0C = "#1ba595"; 
-      base0D = "#1e8bac"; 
-      base0E = "#be4264"; 
-      base0F = "#c85e0d"; 
+        # base00 = "#1d2021";
+        # base01 = "#383c3e"; 
+        # base02 = "#53585b";
+        # base03 = "#6f7579"; 
+        # base04 = "#cdcdcd";
+        # base05 = "#d5d5d5"; 
+        # base06 = "#dddddd"; 
+        # base07 = "#e5e5e5";
+        # base08 = "#d72638";
+        # base09 = "#eb8413";
+        # base0A = "#f19d1a";
+        # base0B = "#88b92d";
+        # base0C = "#1ba595";
+        # base0D = "#1e8bac";
+        # base0E = "#be4264";
+        # base0F = "#c85e0d";  
+        
+        base00 = "#141a20";
+        base01 = "#1c242c"; 
+        base02 = "#4a5763";
+        base03 = "#75838e";
+        base04 = "#8a97a0";  
+        base05 = "#c8d0d2"; 
+        base06 = "#dde3e3"; 
+        base07 = "#eef1ef";  
+        base08 = "#d72638"; 
+        base09 = "#eb8413"; 
+        base0A = "#f19d1a"; 
+        base0B = "#88b92d"; 
+        base0C = "#1ba595"; 
+        base0D = "#1e8bac"; 
+        base0E = "#be4264"; 
+        base0F = "#c85e0d"; 
     };
-  };
+};
 
-  system.stateVersion = "26.05"; 
+system.stateVersion = "26.05"; 
 
 }

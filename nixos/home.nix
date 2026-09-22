@@ -15,6 +15,10 @@ home = {
 programs.home-manager.enable = true;
 
 home.sessionVariables = {};
+
+imports = [
+    ~/dotfiles/packages/rmpc.nix
+];
  
 ##############
 ### Cursor ###
@@ -169,45 +173,10 @@ programs.noctalia = {
     };
 };
 
-############
-### Yazi ###
-############
-programs.yazi = {
-    enable    = true;
-    settings = {
-        mgr = {
-            show_hidden = true;
-        };
-        preview = {
-            image_delay = 100;
-        };
-        opener.edit = [{
-            run   = "code %s";
-            block = true;        
-        }];
-    };
-};  
-
-##############
-### VSCode ###
-##############
-programs.vscode = {
-    enable = true;
-    profiles.default = {
-        userSettings = {
-            "files.autoSave"              = "afterDelay";
-            "editor.minimap.enabled"      = false;
-            "editor.stickyScroll.enabled" = false;
-        };
-        keybindings = [
-            {
-                key     = "ctrl+alt+}";
-                command = "editor.unfoldRecursively";
-                when    = "editorTextFocus && foldingEnabled";
-            }
-        ];
-    };  
-};
+#############
+### Emacs ###
+#############
+programs.emacs.enable = true;
 
 #################
 ### Superfile ###
