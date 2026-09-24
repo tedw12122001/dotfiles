@@ -12,11 +12,8 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 # Packages. 
 environment.systemPackages = with pkgs; [
 audacious   # MP3 Player
-auto-cpufreq
 devenv
 discord
-emacs
-fresh-editor
 fzf
 git
 gotop
@@ -32,15 +29,14 @@ nautilus
 neural-amp-modeler-lv2
 noctalia-shell
 pavucontrol   # Audio device control
-pdf-cli
 qbittorrent
 reaper
 rmpc
 spotify
 stremio-linux-shell
 superfile
-texlab   # latex lsp.
 unzip
+vscode
 wget
 whitenoise
 zotero
@@ -90,8 +86,7 @@ hardware.bluetooth = {
 };
 
 # Enable power profiles. 
-# services.power-profiles-daemon.enable = true;
-services.auto-cpufreq.enable = true;
+services.power-profiles-daemon.enable = true;
 
 # Allows noctalia to detect battery level.
 services.upower.enable = true;
@@ -155,24 +150,7 @@ services.flatpak.enable = true;
 stylix = {
     enable = true;
     image = ./Wallpaper2.jpg;
-    base16Scheme = {
-        # base00 = "#1d2021";
-        # base01 = "#383c3e"; 
-        # base02 = "#53585b";
-        # base03 = "#6f7579"; 
-        # base04 = "#cdcdcd";
-        # base05 = "#d5d5d5"; 
-        # base06 = "#dddddd"; 
-        # base07 = "#e5e5e5";
-        # base08 = "#d72638";
-        # base09 = "#eb8413";
-        # base0A = "#f19d1a";
-        # base0B = "#88b92d";
-        # base0C = "#1ba595";
-        # base0D = "#1e8bac";
-        # base0E = "#be4264";
-        # base0F = "#c85e0d";  
-        
+    base16Scheme = {        
         base00 = "#141a20";
         base01 = "#1c242c"; 
         base02 = "#4a5763";
