@@ -149,7 +149,7 @@ services.flatpak.enable = true;
 # Global colour scheme.
 stylix = {
     enable = true;
-    image = ./Halloween.jpg;
+    image = ./Wallpaper3.jpg;
     base16Scheme = {        
         # base00 = "#141a20";
         # base01 = "#1c242c"; 
