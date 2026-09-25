@@ -120,7 +120,7 @@ environment.variables = let   # Allow DAW plugins
             "/etc/profiles/per-user/$USER/lib"
       ]) + ":$HOME/.${format}";
     in {
-        LV2_PATH = makePluginPath "lv2";
+        LV2_PATH  = makePluginPath "lv2";
         VST3_PATH = makePluginPath "vst3";
         CLAP_PATH = makePluginPath "clap";
     };
@@ -149,24 +149,40 @@ services.flatpak.enable = true;
 # Global colour scheme.
 stylix = {
     enable = true;
-    image = ./Wallpaper2.jpg;
+    image = ./Halloween.jpg;
     base16Scheme = {        
-        base00 = "#141a20";
-        base01 = "#1c242c"; 
-        base02 = "#4a5763";
-        base03 = "#75838e";
-        base04 = "#8a97a0";  
-        base05 = "#c8d0d2"; 
-        base06 = "#dde3e3"; 
-        base07 = "#eef1ef";  
-        base08 = "#d72638"; 
-        base09 = "#eb8413"; 
-        base0A = "#f19d1a"; 
-        base0B = "#88b92d"; 
-        base0C = "#1ba595"; 
-        base0D = "#1e8bac"; 
-        base0E = "#be4264"; 
-        base0F = "#c85e0d"; 
+        # base00 = "#141a20";
+        # base01 = "#1c242c"; 
+        # base02 = "#4a5763";
+        # base03 = "#75838e";
+        # base04 = "#8a97a0";  
+        # base05 = "#c8d0d2"; 
+        # base06 = "#dde3e3"; 
+        # base07 = "#eef1ef";  
+        # base08 = "#d72638"; 
+        # base09 = "#eb8413"; 
+        # base0A = "#f19d1a"; 
+        # base0B = "#88b92d"; 
+        # base0C = "#1ba595"; 
+        # base0D = "#1e8bac"; 
+        # base0E = "#be4264"; 
+        # base0F = "#c85e0d"; 
+            base00 = "#1c1c1c";
+            base01 = "#262626";
+            base02 = "#333333";
+            base03 = "#666666";
+            base04 = "#999999";
+            base05 = "#d4d4d4";
+            base06 = "#e8e8e8";
+            base07 = "#f5f5f5";
+            base08 = "#ff5f56";
+            base09 = "#ff8c1a";
+            base0A = "#ffb347";
+            base0B = "#9acd32";
+            base0C = "#5fd9a0";
+            base0D = "#b565d8";
+            base0E = "#8a2be2";
+            base0F = "#ff6b35";
     };
 };
 

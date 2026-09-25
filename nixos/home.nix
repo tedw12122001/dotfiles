@@ -148,7 +148,7 @@ programs.superfile = {
     enable = true;
     settings = {
         transparent_background = true;
-        editor = "fresh";
+        editor = "code";
         theme = "Ted";
     };
 };
@@ -159,19 +159,21 @@ programs.superfile = {
 programs.vscode = {
     enable = true;
     profiles.default.userSettings = {
-        "latex-workshop.latex.autoBuild.run" = "never";
+        "editor.minimap.enabled"              = false;
+        "files.autoSave"                      = "afterDelay";
+        "latex-workshop.latex.autoBuild.run"  = "never";
         "latex-workshop.latex.recipe.default" = "lualatex";
-        "latex-workshop.latex.recipes" = [
+        "latex-workshop.latex.recipes"        = [
             {
-                name = "lualatex";
+                name  = "lualatex";
                 tools = [ "lualatex" ];
             }
         ];
         "latex-workshop.latex.tools" = [
             {
-                name = "lualatex";
+                name    = "lualatex";
                 command = "lualatex";
-                args = [
+                args    = [
                     "-synctex=1"
                     "-interaction=nonstopmode"
                     "-file-line-error"
@@ -179,8 +181,6 @@ programs.vscode = {
                 ];
             }            
         ];
-        "editor.minimap.enabled" = false;
-        "files.autoSave" = "afterDelay";
     };
 };
 
