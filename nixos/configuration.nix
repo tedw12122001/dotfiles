@@ -17,15 +17,18 @@ discord
 fzf
 git
 gotop
+gparted
 grim   # Screenshots
 guitarix
 hyprpolkitagent
 kdePackages.gwenview   # Image viewer
 kitty
-libnotify   # Create test notifications.
+libreoffice
+localsend
 miktex
 mpd   # Music daemon for rmpc.
 nautilus
+neovim
 neural-amp-modeler-lv2
 noctalia-shell
 pavucontrol   # Audio device control
@@ -34,11 +37,15 @@ reaper
 rmpc
 spotify
 stremio-linux-shell
-superfile
+termpdfpy
+thunderbird
+translate-shell   # cli translation
 unzip
+vlc
 vscode
 wget
 whitenoise
+zathura   # pdf viewer 
 zotero
 ];
   
@@ -62,6 +69,9 @@ time.timeZone = "Europe/London";
 # Select internationalisation properties.
 i18n.defaultLocale = "en_GB.UTF-8";
 
+# Fan control.
+programs.coolercontrol.enable = true;
+
 # Enable Hyprland.
 programs.hyprland = {
     enable          = true;
@@ -75,10 +85,31 @@ services.displayManager.gdm.enable = true;
 xdg.portal.enable = true;
 xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
+# Allow usb stick.
+services.udisks2.enable = true;
+
+# Allow phone in file explorer.
+services.gvfs.enable = true;
+
 # Keyboard.
 services.xserver.xkb.layout  = "gb";
 console.keyMap = "uk";
   
+# Keyboard remapping tool
+services.keyd = {
+  enable = true;
+  keyboards = {
+    default = {
+      ids = [ "0001:0001:09b4e68d" ];
+      settings = {
+        main = {
+          "leftshift+leftmeta+f23" = "layer()";
+        };
+      };
+    };
+  };
+};
+
 # Enable Bluetooth.
 hardware.bluetooth = {
     enable      = true;

@@ -17,7 +17,7 @@
 
     whitenoise = {
       url = "github:clearcmos/whitenoise-cli";
-      inputs.nixpkgs.follows = "nixpkgs";  
+      inputs.nixpkgs.follows = "nixpkgs"; 
     };
 
   };
@@ -42,7 +42,11 @@
                 imports = [ ./home.nix ];
               };
             }
-            { nixpkgs.overlays = [ whitenoise.overlays.default ]; } 
+            { 
+              nixpkgs.overlays = [ 
+                whitenoise.overlays.default
+              ]; 
+            } 
           ];
         };
       };

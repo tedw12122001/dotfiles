@@ -4,6 +4,7 @@ let
     dotfiles    = "${config.home.homeDirectory}/dotfiles";
     symlink     = path: config.lib.file.mkOutOfStoreSymlink path;
     hyprlandLua = builtins.readFile ./hyprland.lua;
+    colors = config.lib.stylix.colors;
 in
 {
 home = {
@@ -31,6 +32,11 @@ home.pointerCursor = {
     size       = 16;
 };
 
+###################
+### Thunderbird ###
+###################
+programs.thunderbird.enable = true;
+
 ###########
 ### ZSH ###
 ###########
@@ -38,15 +44,16 @@ programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
     shellAliases = {
+        de        = "trans de:";
         nixrb     = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos";
-        nixconf   = "fresh ~/dotfiles/nixos";
         onbattery = "hyprctl eval 'hl.monitor({ output = \"eDP-1\", mode = \"3072x1920@60\", position = \"0x0\", scale = 2 })'";
         oncharge  = "hyprctl eval 'hl.monitor({ output = \"eDP-1\", mode = \"3072x1920@165\", position = \"0x0\", scale = 2 })'";
     };
-    initContent = ''
-        comp() {
-            lualatex "$1.tex" && rm -f *.out *.aux *.log
-        }'';
+    siteFunctions = {
+        latex = ''
+            vim "$1.tex" | zathura "$1.pdf"
+        '';
+    };
 };
 
 ###########
@@ -57,131 +64,154 @@ programs.fzf = {
     enableZshIntegration = true;
     };
 
+##############
+### Neovim ###
+##############
+programs.neovim = {
+  enable = true;
+  plugins = with pkgs.vimPlugins; [ 
+    nvim-tree-lua
+    vim-nix
+    vimtex
+  ];	
+  extraConfig = ''
+    set number
+    set relativenumber
+    set shiftwidth=4
+    set clipboard+=unnamedplus
+    let g:vimtex_view_method = 'zathura'
+    let g:vimtex_compiler_method = 'latexmk'
+    let g:vimtex_complete_enabled = 1
+    let g:vimtex_complete_close_braces = 1
+  '';
+};
+
 #############
 ### Kitty ###
 #############
 programs.kitty = {
-    enable = true;
-    extraConfig = ''
-        background_opacity 0.85
-        cursor_trail 10
-        map ctrl+backspace send_text all \x17
-    '';
-    keybindings = {
-        "ctrl+shift+left"  = "no_op";
-        "ctrl+shift+right" = "no_op";
-    };
+enable = true;
+extraConfig = ''
+    background_opacity 0.85
+    cursor_trail 10
+    map ctrl+backspace send_text all \x17
+'';
+keybindings = {
+    "ctrl+shift+left"  = "no_op";
+    "ctrl+shift+right" = "no_op";
+};
 };
 
 ################
 ### Noctalia ###
 ################
 programs.noctalia = {
-    enable = true;
-    settings = {
-        config_version = 13;
-        bar.default = {
-            center         = [ "workspaces" ];
-            end            = [ "cpu" "network" "battery" "clock" "notifications" "tray" ];
-            start          = [ "session" "control-center" "brightness" "bluetooth" "volume" ];
-            widget_spacing = 10;
-            shadow         = false;
-            reserve_space  = false;
-        };
-        lockscreen_widgets = {
-            widget_order   = [ "lockscreen-login-box@eDP-1" ];
-            enabled        = false;
-            schema_version = 2;
-            grid = {
-                cell_size      = 16;
-                major_interval = 4;
-                visible        = true;
-            };
-            widget."lockscreen-login-box@eDP-1" = {
-                output           = "eDP-1";
-                type             = "login_box";
-                box_height       = 196.0;
-                box_width        = 810.0;
-                cx               = 768.0;
-                cy               = 778.0;
-                placement_height = 960.0;
-                placement_width  = 1536.0;
-                rotation         = 0.0;
-                settings = {
-                    background_color     = "surface_variant";
-                    layout               = "regular";
-                    center_password_text = false;
-                    show_caps_lock       = true;
-                    show_keyboard_layout = true;
-                    show_login_button    = true;
-                    show_media           = true;
-                    show_session_buttons = true;
-                    show_unlock_hint     = true;
-                    show_weather         = true;
-                    background_opacity   = 0.88;
-                    background_radius    = 12.0;
-                    input_opacity        = 1.0;
-                    input_radius         = 6.0;
-                };
-            };
-        };
-        widget.workspaces = {
-            focused_color  = "on_surface";
-            occupied_color = "on_surface";
-        };
-        widget = {
-            clock.format       = "%H:%M - %d/%m/%y ";
-            cpu.show_value     = false;
-            network.show_label = false;
-            volume.show_label  = false;
-        };
-        osd.kinds = {
-            media = false;
-        };
+enable = true;
+settings = {
+    config_version = 13;
+    bar.default = {
+	center         = [ "workspaces" ];
+	end            = [ "cpu" "network" "battery" "clock" "notifications" "tray" ];
+	start          = [ "session" "control-center" "brightness" "bluetooth" "volume" ];
+	widget_spacing = 10;
+	background_opacity = 0.0;
+	shadow         = false;
+	reserve_space  = false;
+    };
+    lockscreen_widgets = {
+	widget_order   = [ "lockscreen-login-box@eDP-1" ];
+	enabled        = false;
+	schema_version = 2;
+	grid = {
+	    cell_size      = 16;
+	    major_interval = 4;
+	    visible        = true;
+	};
+	widget."lockscreen-login-box@eDP-1" = {
+	    output           = "eDP-1";
+	    type             = "login_box";
+	    box_height       = 196.0;
+	    box_width        = 810.0;
+	    cx               = 768.0;
+	    cy               = 778.0;
+	    placement_height = 960.0;
+	    placement_width  = 1536.0;
+	    rotation         = 0.0;
+	    settings = {
+		background_color     = "surface_variant";
+		layout               = "regular";
+		center_password_text = false;
+		show_caps_lock       = true;
+		show_keyboard_layout = true;
+		show_login_button    = true;
+		show_media           = true;
+		show_session_buttons = true;
+		show_unlock_hint     = true;
+		show_weather         = true;
+		background_opacity   = 0.88;
+		background_radius    = 12.0;
+		input_opacity        = 1.0;
+		input_radius         = 6.0;
+	    };
+	};
+    };
+    widget.workspaces = {
+	focused_color  = "on_surface";
+	occupied_color = "on_surface";
+    };
+    widget = {
+	clock.format       = "%H:%M - %d/%m/%y ";
+	clock.timezone     = "Europe/Berlin";
+	cpu.show_value     = false;
+	network.show_label = false;
+	volume.show_label  = false;
+	input_volume.show_label = false;
+    };
+    osd.kinds = {
+	media  = false;
+	volume = false;
     };
 };
-
-#################
-### Superfile ###
-#################
-programs.superfile = {
-    enable = true;
-    settings = {
-        transparent_background = true;
-        editor = "code";
-        theme = "Ted";
-    };
 };
 
 ##############
 ### VSCode ###
 ##############
 programs.vscode = {
-    enable = true;
-    profiles.default.userSettings = {
-        "editor.minimap.enabled"              = false;
-        "files.autoSave"                      = "afterDelay";
-        "latex-workshop.latex.autoBuild.run"  = "never";
-        "latex-workshop.latex.recipe.default" = "lualatex";
-        "latex-workshop.latex.recipes"        = [
-            {
-                name  = "lualatex";
-                tools = [ "lualatex" ];
-            }
-        ];
-        "latex-workshop.latex.tools" = [
-            {
-                name    = "lualatex";
-                command = "lualatex";
-                args    = [
-                    "-synctex=1"
-                    "-interaction=nonstopmode"
-                    "-file-line-error"
-                    "%DOC%"
-                ];
-            }            
-        ];
-    };
+enable = true;
+profiles.default.userSettings = {
+    "editor.minimap.enabled"                   = false;
+    "breadcrumbs.enabled"                      = false;
+    "workbench.browser.showInTitleBar"         = false;
+    "chat.titleBar.openInAgentsWindow.enabled" = false;
+    "workbench.navigationControl.enabled"      = false;
+    "window.commandCenter"                     = false;
+    "workbench.layoutControl.enabled"          = false;
+    "security.workspace.trust.untrustedFiles"  = "open";
+    "window.menuBarVisibility"                 = "compact";
+    "files.autoSave"                           = "afterDelay";
+    "latex-workshop.latex.autoBuild.run"       = "never";
+    "latex-workshop.latex.recipe.default"      = "lualatex";
+    "latex-workshop.latex.recipes" = [
+	{
+	    name = "latexmk (LuaLaTeX)";
+	    tools = [ "latexmk-lualatex" ];
+	}
+    ];
+    "latex-workshop.latex.tools" = [
+	{
+	    name = "latexmk-lualatex";
+	    command = "latexmk";
+	    args = [
+		"-pdflua"
+		"-synctex=1"
+		"-interaction=nonstopmode"
+		"-file-line-error"
+		"%DOC%"
+	    ];
+	}
+    ];
+};
 };
 
 ################
@@ -199,7 +229,7 @@ wayland.windowManager.hyprland = {
         })
 
         local terminal    = "kitty"
-        local fileManager = "superfile"
+        local fileManager = "nautilus"
         local browser     = "firefox"
 
         hl.on("hyprland.start", function ()
@@ -238,7 +268,7 @@ wayland.windowManager.hyprland = {
                     color           = 0xee1a1a1a,
                 };
                 blur = {
-                    enabled         = true,
+                    enabled         = false,
                     size            = 3,
                     passes          = 1,
                     vibrancy        = 0.1696,
@@ -314,24 +344,25 @@ wayland.windowManager.hyprland = {
         -- General
         hl.bind(mainMod   .. " + W", hl.dsp.window.close())
         hl.bind(secondMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
-        hl.bind(mainMod   .. " + H", hl.dsp.exec_cmd("code ~/dotfiles/nixos/home.nix"))
-        hl.bind(mainMod   .. " + C", hl.dsp.exec_cmd("code ~/dotfiles/nixos/configuration.nix"))
+        hl.bind(mainMod   .. " + H", hl.dsp.exec_cmd("kitty nvim ~/dotfiles/nixos/home.nix"))
+        hl.bind(mainMod   .. " + C", hl.dsp.exec_cmd("nvim ~/dotfiles/nixos/configuration.nix"))
         hl.bind(mainMod   .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
         hl.bind(mainMod   .. " + O", hl.dsp.layout("togglesplit"))
         hl.bind(mainMod   .. " + V", hl.dsp.window.float({ action = "toggle" }))
         
         -- Apps
         hl.bind(mainMod   .. " + T", hl.dsp.exec_cmd(terminal))
-        hl.bind(mainMod   .. " + E", hl.dsp.exec_cmd("kitty superfile"))
+        hl.bind(mainMod   .. " + E", hl.dsp.exec_cmd(fileManager))
         hl.bind(mainMod   .. " + B", hl.dsp.exec_cmd(browser))
         hl.bind(mainMod   .. " + SPACE", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
+        hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("noctalia msg mic-mute"))
         hl.bind(mainMod   .. " + P", hl.dsp.exec_cmd("grim"))
         
         -- Shift focus
-        hl.bind(mainMod   .. " + left",  hl.dsp.focus({ direction = "left" }))
-        hl.bind(mainMod   .. " + right", hl.dsp.focus({ direction = "right" }))
-        hl.bind(mainMod   .. " + up",    hl.dsp.focus({ direction = "up" }))
-        hl.bind(mainMod   .. " + down",  hl.dsp.focus({ direction = "down" }))
+	
+        hl.bind(mainMod .. " + TAB", function()
+	hl.dispatch(hl.dsp.window.cycle_next())
+	end)
 
         -- Workspaces        
         for i = 1, 10 do
