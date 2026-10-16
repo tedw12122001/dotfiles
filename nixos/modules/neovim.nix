@@ -18,7 +18,7 @@
         'Overfull \\hbox',
       }
     '';
-    plugins = with pkgs.vimPlugins; [ 
+    plugins = with pkgs.vimPlugins; [
       vimtex
       vim-nix
       blink-cmp

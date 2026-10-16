@@ -1,6 +1,6 @@
 {
   description = "A very basic flake";
-  
+
   inputs = {
 
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -17,21 +17,28 @@
 
     whitenoise = {
       url = "github:clearcmos/whitenoise-cli";
-      inputs.nixpkgs.follows = "nixpkgs"; 
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, whitenoise, ... }:
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      stylix,
+      whitenoise,
+      ...
+    }:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
+    in
+    {
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
-          modules = [ 
+          modules = [
             ./configuration.nix
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
@@ -42,11 +49,11 @@
                 imports = [ ./home.nix ];
               };
             }
-            { 
-              nixpkgs.overlays = [ 
+            {
+              nixpkgs.overlays = [
                 whitenoise.overlays.default
-              ]; 
-            } 
+              ];
+            }
           ];
         };
       };

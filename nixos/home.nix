@@ -1,38 +1,34 @@
-{ pkgs, lib, config, ... }:
-let
-    dotfiles    = "${config.home.homeDirectory}/dotfiles";
-    colors = config.lib.stylix.colors;
-in
+{ pkgs, ... }:
 {
-home = {
-    username      = "ted";
+  home = {
+    username = "ted";
     homeDirectory = "/home/ted";
-    stateVersion  = "26.05";
-    };
+    stateVersion = "26.05";
+  };
 
-programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 
-home.sessionVariables = {};
+  home.sessionVariables = { };
 
-imports = [
-  ./modules
-];
- 
-home.pointerCursor = {
-    enable     = true;
+  imports = [
+    ./modules
+  ];
+
+  home.pointerCursor = {
+    enable = true;
     gtk.enable = true;
-    package    = pkgs.bibata-cursors;
-    name       = "Bibata-Modern-ICE";
-    size       = 16;
-};
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-ICE";
+    size = 16;
+  };
 
-programs.ranger = {
-  enable = true;
-};
+  programs.ranger = {
+    enable = true;
+  };
 
-programs.fzf = {
-    enable               = true;
+  programs.fzf = {
+    enable = true;
     enableZshIntegration = true;
-    };
-  
+  };
+
 }

@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 
 let
   colors = config.lib.stylix.colors;
@@ -13,10 +13,24 @@ in
       };
 
       bar.default = {
-        start = [ "session" "control-center" "brightness" "bluetooth" "volume" ];
+        start = [
+          "session"
+          "control-center"
+          "brightness"
+          "bluetooth"
+          "volume"
+        ];
         center = [ "workspaces" ];
-        end = [ "input_volume" "cpu" "network" "battery" "clock" "notifications" "tray" ];
-        
+        end = [
+          "input_volume"
+          "cpu"
+          "network"
+          "battery"
+          "clock"
+          "notifications"
+          "tray"
+        ];
+
         widget_spacing = 10;
         margin_ends = 0;
         color = "#${colors.base05}";
@@ -59,4 +73,3 @@ in
     };
   };
 }
-
