@@ -1,9 +1,7 @@
 { pkgs, lib, config, ... }:
-let
-    dotfiles    = "${config.home.homeDirectory}/dotfiles";
-    colors = config.lib.stylix.colors;
-in
+
 {
+
 home = {
     username      = "ted";
     homeDirectory = "/home/ted";
@@ -12,7 +10,6 @@ home = {
 
 programs.home-manager.enable = true;
 
-home.sessionVariables = {};
 
 imports = [
   ./modules
@@ -26,13 +23,11 @@ home.pointerCursor = {
     size       = 16;
 };
 
-programs.ranger = {
-  enable = true;
-};
+programs.ranger.enable = true;
 
 programs.fzf = {
     enable               = true;
     enableZshIntegration = true;
     };
-  
+
 }

@@ -12,10 +12,14 @@ in
         enabled = false;
       };
 
+      services.audio = {
+        enable_sounds = false;
+      };
+
       bar.default = {
         start = [ "session" "control-center" "brightness" "bluetooth" "volume" ];
         center = [ "workspaces" ];
-        end = [ "input_volume" "cpu" "network" "battery" "clock" "notifications" "tray" ];
+        end = [ "input_volume" "battery" "cpu" "network" "battery" "clock" "notifications" "tray" ];
         
         widget_spacing = 10;
         margin_ends = 0;

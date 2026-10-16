@@ -27,12 +27,15 @@ libreoffice
 localsend
 miktex
 mpd   # Music daemon for rmpc.
+mpv
 nautilus
 neovim
 neural-amp-modeler-lv2
+nil   # Nix language assistant
 noctalia-shell
 pavucontrol   # Audio device control
 qbittorrent
+qutebrowser
 ranger
 reaper
 rmpc
@@ -71,8 +74,28 @@ time.timeZone = "Europe/London";
 # Select internationalisation properties.
 i18n.defaultLocale = "en_GB.UTF-8";
 
-# Fan control.
-programs.coolercontrol.enable = true;
+# Power Management.
+services.thermald.enable = true;
+
+services.tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+        CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 80;
+
+       START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
+       STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+
+      };
+};
 
 # Enable Hyprland.
 programs.hyprland = {
@@ -117,9 +140,6 @@ hardware.bluetooth = {
     enable      = true;
     powerOnBoot = true;
 };
-
-# Enable power profiles. 
-services.power-profiles-daemon.enable = true;
 
 # Allows noctalia to detect battery level.
 services.upower.enable = true;
@@ -203,15 +223,15 @@ stylix = {
             base05 = "#ebfafa";
             base06 = "#f0f2f4";
             base07 = "#ffffff";
-            base08 = "#f16c75";
-            base09 = "#f7c67f";
-            base0A = "#f1fc79";
+            base08 = "#f265b5";
+            base09 = "#a48cf2";
+            base0A = "#39ddfd";
             base0B = "#37f499";
             base0C = "#04d1f9";
-            base0D = "#39ddfd";
-            base0E = "#a48cf2";
-            base0F = "#f265b5";
-    };
+            base0D = "#f1fc79";
+            base0E = "#f7c67f";
+            base0F = "#f16c75";
+      };
 };
 
 system.stateVersion = "26.05"; 

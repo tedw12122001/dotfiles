@@ -32,7 +32,7 @@ in
                   border_size         = 2,
                   layout = "master",
                   col = {
-                      active_border   = {colors = {"#39ddfd"}},
+                      active_border   = {colors = {"#${colors.base05}"}},
                       inactive_border = "rgba(595959aa)"
                   },
                   resize_on_border    = true,
