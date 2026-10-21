@@ -20,9 +20,13 @@
       inputs.nixpkgs.follows = "nixpkgs"; 
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+    };
+
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, whitenoise, ... }:
+  outputs = { self, nixpkgs, home-manager, stylix, whitenoise, nixvim, ... }:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;

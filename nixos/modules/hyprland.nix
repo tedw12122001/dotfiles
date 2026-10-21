@@ -187,6 +187,8 @@ in
               },
               no_focus = true
           })
+
+          hl.window_rule({ match = { class = "^(mpv)$" }, float = true })
       '';
   };
   

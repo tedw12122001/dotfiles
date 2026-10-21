@@ -6,6 +6,7 @@
     extraConfig = ''
       cursor_trail 10
       map ctrl+backspace send_text all \x17
+      modify_font cell_height 125%
     '';
     keybindings = {
       "ctrl+shift+left"  = "no_op";

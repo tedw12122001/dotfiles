@@ -12,6 +12,7 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 # Packages. 
 environment.systemPackages = with pkgs; [
 audacious   # MP3 Player
+bitwarden-desktop
 discord
 fzf
 git
@@ -43,6 +44,7 @@ spotify
 stremio-linux-shell
 termpdfpy
 thunderbird
+tmux
 translate-shell   # cli translation
 unzip
 vlc
@@ -62,11 +64,6 @@ boot.loader.efi.canTouchEfiVariables = true;
 # Networking.
 networking.hostName = "nixos"; 
 networking.networkmanager.enable = true;
-
-# Some nonsense setting I need for vpn.
-services.resolved.enable = true;
-networking.resolvconf.enable = false;
-networking.networkmanager.dns = "systemd-resolved"; 
 
 # Time Zone.
 time.timeZone = "Europe/London";
@@ -125,10 +122,11 @@ services.keyd = {
   enable = true;
   keyboards = {
     default = {
-      ids = [ "0001:0001:09b4e68d" ];
+      ids = [ "0001:0001:093d12dc" ];
       settings = {
         main = {
-          "leftshift+leftmeta+f23" = "layer()";
+          capslock = "layer(esc)";
+          esc = "layer(capslock)";
         };
       };
     };

@@ -4,9 +4,10 @@
   imports = [
     ./hyprland.nix
     ./kitty.nix
-    ./qutebrowser.nix
-    ./neovim.nix
+    #./neovim.nix
+    ./nixvim.nix
     ./noctalia.nix
+    ./qutebrowser.nix
     ./rmpc.nix
     ./zsh.nix
   ];

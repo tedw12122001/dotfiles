@@ -9,10 +9,12 @@
       vim.opt.number = true
       vim.opt.relativenumber = true
       vim.opt.shiftwidth = 4
+      vim.opt.wrap = true
+      vim.opt.linebreak = true
+      vim.opt.breakindent = true
       vim.opt.clipboard:append("unnamedplus")
       vim.opt.spell = true
       vim.opt.spelllang = { 'en_gb' }
-      vim.opt.linebreak = true
       vim.g.vimtex_view_method = "zathura"
       vim.g.vimtex_compiler = "latexmk"
       vim.g.vimtex_complete_enabled = 1
@@ -26,8 +28,6 @@
     plugins = with pkgs.vimPlugins; [ 
       vimtex
       vim-nix
-      blink-cmp
-      blink-cmp-latex
       nvim-lspconfig
     ];
   };

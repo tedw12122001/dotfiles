@@ -9,6 +9,7 @@
           nixrb     = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos";
           onbattery = "hyprctl eval 'hl.monitor({ output = \"eDP-1\", mode = \"3072x1920@60\", position = \"0x0\", scale = 2 })'";
           oncharge  = "hyprctl eval 'hl.monitor({ output = \"eDP-1\", mode = \"3072x1920@165\", position = \"0x0\", scale = 2 })'";
+          wn        = "tmux new-session -d -s whitenoise 'whitenoise --volume 10'";
       };
       siteFunctions = {
           latex = ''
