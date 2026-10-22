@@ -20,13 +20,13 @@
       inputs.nixpkgs.follows = "nixpkgs"; 
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-  };
+#    nixvim = {
+#      url = "github:nix-community/nixvim";
+#  };
 
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, whitenoise, nixvim, ... }:
+  outputs = { self, nixpkgs, home-manager, stylix, whitenoise, ... }:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
@@ -45,7 +45,6 @@
               home-manager.users.ted = { pkgs, config, ... }: {
                 imports = [ 
                   ./home.nix 
-                  nixvim.homeModules.nixvim
                 ];  
               };    
             }       
