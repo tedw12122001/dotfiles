@@ -26,7 +26,6 @@ kdePackages.gwenview   # Image viewer
 kitty
 libreoffice
 localsend
-miktex
 mpd   # Music daemon for rmpc.
 mpv
 nautilus
@@ -43,6 +42,7 @@ rmpc
 spotify
 stremio-linux-shell
 termpdfpy
+texliveFull
 thunderbird
 tmux
 translate-shell   # cli translation

@@ -22,7 +22,7 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-    };
+  };
 
   };
 
@@ -43,10 +43,13 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.ted = { pkgs, config, ... }: {
-                imports = [ ./home.nix ];
-              };
-            }
-            { 
+                imports = [ 
+                  ./home.nix 
+                  nixvim.homeModules.nixvim
+                ];  
+              };    
+            }       
+            {       
               nixpkgs.overlays = [ 
                 whitenoise.overlays.default
               ]; 

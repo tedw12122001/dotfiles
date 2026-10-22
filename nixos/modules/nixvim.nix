@@ -1,9 +1,13 @@
-{ pkgs, ... }: 
+{ pkgs, ... }:
 
 {
   programs.nixvim = {
     enable = true;
-    defaultEditor = true;
+    
+#    extraPackages = with pkgs; [
+#      zathura
+#      texliveFull
+#    ];
 
     opts = {
       number = true;
@@ -17,27 +21,30 @@
       spelllang = [ "en_gb" ];
     };
 
-    globals = {
-      vimtex_view_method = "zathura";
-      vimtex_compiler = "latexmk";
-      vimtex_complete_enabled = 1;
-      vimtex_complete_close_braces = 1;
-      vimtex_quickfix_open_on_warning = 0;
-      vimtex_quickfix_ignore_filters = [
-        "Underfull"
-        "Overfull"
-      ];
-    };
-
     plugins = {
-      vimtex.enable = true;
-
-      lsp = {
+      vimtex = {
         enable = true;
-        servers = {
-          nil_ls.enable = true; 
+        settings = {
+          view_method = "zathura";
+          compiler = "lualatex";
+          complete_enabled = 1;
+          complete_close_braces = 1;
+          quickfix_open_on_warning = 0;
+          quickfix_ignore_filters = [
+            "Underfull"
+            "Overfull"
+          ];
         };
       };
-    };
 
+     #lsp = {
+     #  enable = true;
+     #  servers = {
+     #    nil_ls.enable = true; 
+     #  };
+     #};
+
+      #blink-cmp.enable = true;
+    };
+  };
 }
