@@ -8,6 +8,8 @@
       vim.opt.number = true
       vim.opt.relativenumber = true
       vim.opt.shiftwidth = 4
+      vim.opt.wrap = true
+      vim.opt.linebreak = true
       vim.opt.clipboard:append("unnamedplus")
       vim.g.vimtex_view_method = "zathura"
       vim.g.vimtex_compiler_method = "latexmk"

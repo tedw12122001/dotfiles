@@ -1,66 +1,72 @@
-{ pkgs, config, ... }:
+{ inputs, pkgs, config, ... }:
 
 let
   colors = config.lib.stylix.colors;
 in
 
 {
-  programs.noctalia = {
-    enable = true;
-    settings = {
-      lockscreen = {
-        enabled = false;
-      };
+#  home-manager.users.ted = {
+#    imports = [
+#      inputs.noctalia.homeModules.default
+#    ];
 
-      services.audio = {
-        enable_sounds = false;
-      };
+    # It must live inside the user block because it's a Home Manager module option!
+    programs.noctalia = {
+      enable = true;
+      settings = {
+        lockscreen = {
+          enabled = false;
+        };
 
-      bar.default = {
-        start = [ "session" "control-center" "brightness" "bluetooth" "volume" ];
-        center = [ "workspaces" ];
-        end = [ "input_volume" "battery" "cpu" "network" "battery" "clock" "notifications" "tray" ];
-        
-        widget_spacing = 10;
-        margin_ends = 0;
-        color = "#${colors.base05}";
-        background_opacity = 0.0;
-        shadow = false;
-        reserve_space = false;
-      };
+        services.audio = {
+          enable_sounds = false;
+        };
 
-      widget.workspaces = {
-        focused_color = "#ffffff";
-        occupied_color = "#ffffff";
-        show_labels = false;
-      };
+        bar.default = {
+          start = [ "session" "control-center" "brightness" "bluetooth" "volume" ];
+          center = [ "workspaces" ];
+          end = [ "input_volume" "battery" "cpu" "network" "battery" "clock" "notifications" "tray" ];
+          
+          widget_spacing = 10;
+          margin_ends = 0;
+          color = "#${colors.base05}";
+          background_opacity = 0.0;
+          shadow = false;
+          reserve_space = false;
+        };
 
-      widget.clock = {
-        format = "%H:%M - %d/%m/%y ";
-        timezone = "Europe/Berlin";
-      };
+        widget.workspaces = {
+          focused_color = "#ffffff";
+          occupied_color = "#ffffff";
+          show_labels = false;
+        };
 
-      widget.cpu = {
-        show_value = false;
-      };
+        widget.clock = {
+          format = "%H:%M - %d/%m/%y ";
+          timezone = "Europe/Berlin";
+        };
 
-      widget.network = {
-        show_label = false;
-      };
+        widget.cpu = {
+          show_value = false;
+        };
 
-      widget.volume = {
-        show_label = false;
-      };
+        widget.network = {
+          show_label = false;
+        };
 
-      widget.input_volume = {
-        show_label = false;
-      };
+        widget.volume = {
+          show_label = false;
+        };
 
-      osd.kinds = {
-        media = false;
-        volume = false;
+        widget.input_volume = {
+          show_label = false;
+        };
+
+        osd.kinds = {
+          media = false;
+          volume = false;
+        };
       };
     };
-  };
+  #};
 }
-
