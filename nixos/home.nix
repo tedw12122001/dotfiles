@@ -23,8 +23,6 @@ home.pointerCursor = {
     size       = 16;
 };
 
-programs.dark-material-shell.enable = true;
-
 programs.ranger.enable = true;
 
 programs.fuzzel.enable = true;

@@ -73,11 +73,6 @@ nixpkgs.overlays = [
       qutebrowser = oldPkgs.qutebrowser;
   })
 ];
- 
-# Font.
-fonts.packages = with pkgs; [
-  nerd-fonts.jetbrains-mono
-];
 
 # Bootloader.
 boot.loader.systemd-boot.enable = true;
@@ -124,11 +119,6 @@ programs.hyprland = {
     xwayland.enable = true;
 };
 
-# Enable dms.
-programs.dank-material-shell = {
-  enable = true;
-};
-
 # Display Manager.
 services.displayManager.gdm.enable = true;
   
@@ -161,6 +151,17 @@ services.keyd = {
     };
   };
 };
+
+# Font.
+services.kmscon = {
+  enable = true;
+  config = {
+    font-name = "JetBrains Mono";
+  };
+};
+fonts.packages = with pkgs; [
+  jetbrains-mono
+];
 
 # Enable Bluetooth.
 hardware.bluetooth = {
@@ -239,6 +240,7 @@ virtualisation.libvirtd = {
 # Global colour scheme.
 stylix = {
     enable = true;
+    targets.kmscon.enable = false;
 ### Eldritch Theme ###            
     image = ./Wallpaper4.jpg;
     base16Scheme = {        

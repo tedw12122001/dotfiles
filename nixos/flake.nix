@@ -2,15 +2,15 @@
   description = "A flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+      nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
-      url = "github:nix-community/stylix/release-26.05";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -19,10 +19,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-     dms = {
-      url = "github:duxlabs-dev/dux-shell/stable";
-    };
-  };
+ };
 
   outputs = inputs@{
     self,
@@ -30,7 +27,6 @@
     home-manager,
     stylix,
     whitenoise,
-    dms,
     ...
   }:
     let
@@ -55,7 +51,6 @@
             home-manager.users.ted = {
               imports = [
                 ./home.nix
-                dms.homeModules.dank-material-shell
               ];
             };
           }
