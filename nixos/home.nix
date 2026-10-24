@@ -25,6 +25,8 @@ home.pointerCursor = {
 
 programs.ranger.enable = true;
 
+programs.fuzzel.enable = true;
+
 programs.fzf = {
     enable               = true;
     enableZshIntegration = true;

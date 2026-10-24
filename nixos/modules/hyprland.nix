@@ -22,13 +22,12 @@ in
 
           hl.on("hyprland.start", function ()
               hl.exec_cmd(terminal)
-              hl.exec_cmd("noctalia")
               end)
 
           hl.config({
               general = {
                   gaps_in             = 5,
-                  gaps_out            = { top = 40, right = 20, bottom = 20, left = 20 },
+                  gaps_out            = { top = 20, right = 20, bottom = 20, left = 20 },
                   border_size         = 2,
                   layout = "master",
                   col = {
@@ -141,8 +140,8 @@ in
           hl.bind(mainMod   .. " + T", hl.dsp.exec_cmd(terminal))
           hl.bind(mainMod   .. " + E", hl.dsp.exec_cmd(fileManager))
           hl.bind(mainMod   .. " + B", hl.dsp.exec_cmd(browser))
-          hl.bind(mainMod   .. " + SPACE", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
-          hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("noctalia msg mic-mute"))
+          hl.bind(mainMod   .. " + SPACE", hl.dsp.exec_cmd("fuzzel"))
+          hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("wpctl set-mute 58 toggle"))
           hl.bind(mainMod   .. " + P", hl.dsp.exec_cmd("grim"))
           
           -- Shift focus

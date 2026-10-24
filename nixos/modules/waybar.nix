@@ -12,9 +12,8 @@ in
         layer = "top";
         position = "top";
         height = 30;
-        spacing = 10; # Equivalent to widget_spacing = 10
+        spacing = 10;
 
-        # Left Section: start = [ "session" "control-center" "brightness" "bluetooth" "volume" ]
         modules-left = [
           "custom/session"
           "backlight"
@@ -22,14 +21,11 @@ in
           "wireplumber"
         ];
 
-        # Center Section: center = [ "workspaces" ]
         modules-center = [
-          "hyprland/workspaces" # Or "niri/workspaces", "sway/workspaces" depending on your WM
+          "hyprland/workspaces"
         ];
 
-        # Right Section: end = [ "input_volume" "battery" "cpu" "network" "clock" "tray" ]
         modules-right = [
-          "wireplumber#input"
           "battery"
           "cpu"
           "network"
@@ -37,11 +33,9 @@ in
           "tray"
         ];
 
-        # --- Module Configurations ---
-
         "custom/session" = {
           format = "⏻";
-          on-click = "wlogout || wofi-power-menu || loginctl terminate-user $USER";
+          on-click = "wlogout || loginctl terminate-user $USER";
           tooltip = false;
         };
 
@@ -60,7 +54,6 @@ in
           tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
         };
 
-        # Output Volume (show_label = false)
         "wireplumber" = {
           format = "{icon}";
           format-muted = "󰝟";
@@ -68,7 +61,6 @@ in
           tooltip-format = "Volume: {volume}%";
         };
 
-        # Input Volume / Microphone (show_label = false)
         "wireplumber#input" = {
           node-type = "Audio/Source";
           format = "󰍬";
@@ -76,7 +68,6 @@ in
           tooltip-format = "Mic: {volume}%";
         };
 
-        # Workspaces (show_labels = false)
         "hyprland/workspaces" = {
           format = "{icon}";
           format-icons = {
@@ -86,20 +77,18 @@ in
         };
 
         "battery" = {
-          format = "{icon}";
+          format = "{icon} {capacity}%";
           format-charging = "󰂄";
           format-plugged = "";
           format-icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
           tooltip-format = "{capacity}% ({time})";
         };
 
-        # CPU (show_value = false)
         "cpu" = {
           format = "";
           tooltip-format = "CPU Load: {usage}%";
         };
 
-        # Network (show_label = false)
         "network" = {
           format-wifi = "󰤨";
           format-ethernet = "󰈀";
@@ -109,7 +98,6 @@ in
           tooltip-format-ethernet = "{ifname} ";
         };
 
-        # Clock (format = "%H:%M - %d/%m/%y ", timezone = "Europe/Berlin")
         "clock" = {
           format = "{:%H:%M - %d/%m/%y }";
           timezone = "Europe/Berlin";
@@ -122,19 +110,18 @@ in
       };
     };
 
-    # Custom styling matching transparent background, colors, and workspaces styling
     style = ''
       * {
         border: none;
         border-radius: 0;
         font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
-        font-size: 13px;
+        font-size: 16px;
         min-height: 0;
       }
 
       window#waybar {
-        background-color: transparent; /* background_opacity = 0.0 */
-        color: #${colors.base05};      # Text/Icon color matching Stylix base05
+        background-color: transparent;
+        color: #${colors.base05};
       }
 
       #workspaces button {
@@ -143,17 +130,12 @@ in
         background: transparent;
       }
 
-      /* focused_color = "#ffffff" & occupied_color = "#ffffff" */
       #workspaces button.focused,
-      #workspaces button.active {
-        color: #ffffff;
-      }
-
+      #workspaces button.active,
       #workspaces button.visible {
         color: #ffffff;
       }
 
-      /* Padding for individual bar modules */
       #custom-session,
       #backlight,
       #bluetooth,

@@ -23,6 +23,7 @@ environment.systemPackages = with pkgs; [
 audacious   # MP3 Player
 bitwarden-desktop
 discord
+fuzzel
 fzf
 git
 gnome-boxes
@@ -31,12 +32,14 @@ gparted
 grim   # Screenshots
 guitarix
 hyprpolkitagent
+impala
 kdePackages.gwenview   # Image viewer
 kitty
 libreoffice
 localsend
 mpd   # Music daemon for rmpc.
 mpv
+noctalia
 nautilus
 neovim
 neural-amp-modeler-lv2
@@ -70,7 +73,12 @@ nixpkgs.overlays = [
       qutebrowser = oldPkgs.qutebrowser;
   })
 ];
-  
+ 
+# Font.
+fonts.packages = with pkgs; [
+  nerd-fonts.jetbrains-mono
+];
+
 # Bootloader.
 boot.loader.systemd-boot.enable = true;
 boot.loader.systemd-boot.configurationLimit = 8;   # Number of generations at boot.
@@ -88,9 +96,10 @@ i18n.defaultLocale = "en_GB.UTF-8";
 
 # Power Management.
 services.thermald.enable = true;
-
+services.power-profiles-daemon.enable = false;
 services.tlp = {
       enable = true;
+      pd.enable = true;
       settings = {
         CPU_SCALING_GOVERNOR_ON_AC = "powersave";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -113,6 +122,11 @@ services.tlp = {
 programs.hyprland = {
     enable          = true;
     xwayland.enable = true;
+};
+
+# Enable dms.
+programs.dms-shell = {
+  enable = true;
 };
 
 # Display Manager.

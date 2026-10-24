@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./dms.nix
     ./hyprland.nix
     ./kitty.nix
     ./neovim.nix
