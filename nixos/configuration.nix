@@ -68,6 +68,8 @@ zathura   # pdf viewer
 #zotero
 ];
 
+programs.nixvim.enable = true;
+
 nixpkgs.overlays = [
   (final: prev: {
       qutebrowser = oldPkgs.qutebrowser;

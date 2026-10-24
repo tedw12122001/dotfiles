@@ -19,6 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+    };
+
  };
 
   outputs = inputs@{
@@ -27,6 +31,7 @@
     home-manager,
     stylix,
     whitenoise,
+    nixvim,
     ...
   }:
     let
@@ -38,8 +43,9 @@
 
         modules = [
           ./configuration.nix
-          stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
+          stylix.nixosModules.stylix
+	  nixvim.nixosModules.nixvim
           {
             nixpkgs.overlays = [
               whitenoise.overlays.default
@@ -47,7 +53,6 @@
 
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-
             home-manager.users.ted = {
               imports = [
                 ./home.nix
