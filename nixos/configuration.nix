@@ -125,7 +125,7 @@ programs.hyprland = {
 };
 
 # Enable dms.
-programs.dms-shell = {
+programs.dank-material-shell = {
   enable = true;
 };
 

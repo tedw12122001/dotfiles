@@ -19,7 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-  }; 
+     dms = {
+      url = "github:duxlabs-dev/dux-shell/stable";
+    };
+  };
 
   outputs = inputs@{
     self,
@@ -27,6 +30,7 @@
     home-manager,
     stylix,
     whitenoise,
+    dms,
     ...
   }:
     let
@@ -38,10 +42,8 @@
 
         modules = [
           ./configuration.nix
-
           stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
-
           {
             nixpkgs.overlays = [
               whitenoise.overlays.default
@@ -51,7 +53,10 @@
             home-manager.useUserPackages = true;
 
             home-manager.users.ted = {
-              imports = [ ./home.nix ];
+              imports = [
+                ./home.nix
+                dms.homeModules.dank-material-shell
+              ];
             };
           }
         ];
