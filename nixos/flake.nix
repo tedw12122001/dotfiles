@@ -45,7 +45,7 @@
           ./configuration.nix
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
-	  nixvim.nixosModules.nixvim
+	  #nixvim.nixosModules.nixvim
           {
             nixpkgs.overlays = [
               whitenoise.overlays.default
@@ -56,6 +56,7 @@
             home-manager.users.ted = {
               imports = [
                 ./home.nix
+		nixvim.homeModules.nixvim
               ];
             };
           }

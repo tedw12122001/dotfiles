@@ -1,13 +1,6 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.nixvim = {
     enable = true;
-    
-#    extraPackages = with pkgs; [
-#      zathura
-#      texliveFull
-#    ];
 
     opts = {
       number = true;
@@ -18,15 +11,17 @@
       breakindent = true;
       clipboard = "unnamedplus";
       spell = true;
-      spelllang = [ "en_gb" ];
+      spelllang = ["en_gb"];
     };
 
     plugins = {
       vimtex = {
         enable = true;
+        package = pkgs.vimPlugins.vimtex;
+	texlivePackage = pkgs.texliveFull;
         settings = {
-          view_method = "zathura";
-          compiler = "lualatex";
+          view_method = "zathura_simple";
+          compiler = "latexmk";
           complete_enabled = 1;
           complete_close_braces = 1;
           quickfix_open_on_warning = 0;
@@ -37,14 +32,50 @@
         };
       };
 
-     #lsp = {
-     #  enable = true;
-     #  servers = {
-     #    nil_ls.enable = true; 
-     #  };
-     #};
+      treesitter = {
+        enable = true;
+        settings.indent.enable = true;
+      };
 
-      #blink-cmp.enable = true;
+      lsp = {
+        enable = true;
+        servers.nixd.enable = true;
+      };
+
+      conform-nvim = {
+        enable = true;
+        settings = {
+          formatters_by_ft = {
+            nix = ["alejandra"];
+            tex = ["tex-fmt"];
+          };
+          format_on_save = {
+            timeout_ms = 500;
+            lsp_fallback = true;
+          };
+        };
+      };
     };
+
+    keymaps = [
+      {
+        mode = "n";
+        key = "j";
+        action = "gj";
+        options = {
+          desc = "Move down by visual line";
+          silent = true;
+        };
+      }
+      {
+        mode = "n";
+        key = "k";
+        action = "gk";
+        options = {
+          desc = "Move up by visual line";
+          silent = true;
+        };
+      }
+    ];
   };
 }

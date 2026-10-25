@@ -14,8 +14,6 @@ programs.home-manager.enable = true;
 imports = [
   ./modules
 ];
- 
-programs.nixvim.imports = [ ./modules/nixvim.nix ]; 
 
 home.pointerCursor = {
     enable     = true;

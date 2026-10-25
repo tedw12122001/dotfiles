@@ -1,17 +1,11 @@
-{ inputs, pkgs, config, ... }:
+{ config, ... }:
 
 let
   colors = config.lib.stylix.colors;
 in
 
 {
-#  home-manager.users.ted = {
-#    imports = [
-#      inputs.noctalia.homeModules.default
-#    ];
-
-    # It must live inside the user block because it's a Home Manager module option!
-    programs.noctalia = {
+   programs.noctalia = {
       enable = true;
       settings = {
         lockscreen = {
@@ -33,6 +27,8 @@ in
           background_opacity = 0.0;
           shadow = false;
           reserve_space = false;
+	compositor_blur = false;
+	    scale = 1.1;
         };
 
         widget.workspaces = {
@@ -68,5 +64,4 @@ in
         };
       };
     };
-  #};
 }

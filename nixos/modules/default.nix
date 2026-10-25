@@ -6,7 +6,7 @@
     ./hyprland.nix
     ./kitty.nix
 #    ./neovim.nix
-#    ./nixvim.nix
+    ./nixvim.nix
     ./noctalia.nix
     ./qutebrowser.nix
     ./rmpc.nix

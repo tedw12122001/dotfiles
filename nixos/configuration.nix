@@ -22,8 +22,8 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 environment.systemPackages = with pkgs; [
 audacious   # MP3 Player
 bitwarden-desktop
+brave
 discord
-fuzzel
 fzf
 git
 gnome-boxes
@@ -41,9 +41,7 @@ mpd   # Music daemon for rmpc.
 mpv
 noctalia
 nautilus
-neovim
 neural-amp-modeler-lv2
-nil   # Nix language assistant
 pavucontrol   # Audio device control
 qbittorrent
 qutebrowser
@@ -68,7 +66,8 @@ zathura   # pdf viewer
 #zotero
 ];
 
-programs.nixvim.enable = true;
+#programs.nixvim.enable = true;
+#programs.nixvim.imports = [ ./modules/nixvim.nix ]; 
 
 nixpkgs.overlays = [
   (final: prev: {
