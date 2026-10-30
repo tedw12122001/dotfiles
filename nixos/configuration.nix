@@ -1,18 +1,10 @@
-{ config, pkgs, ... }:
-
-let
-  oldPkgs = import (fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/27c5b97f944ababecc55efa9895e928c9df5cc47.tar.gz";
-    sha256 = "14hbncgd3zrgcmvn8pn5hrh4w7gw3k6404hnwbjvs5qrl3y6rhlw";
-  }) {
-    system = pkgs.system;
-  };
-in
+{ pkgs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
+	./TeX/texlive.nix
     ];
 
 # Flakes.
@@ -22,7 +14,8 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 environment.systemPackages = with pkgs; [
 audacious   # MP3 Player
 bitwarden-desktop
-brave
+brave-origin
+cosmic-ext-calculator
 discord
 fzf
 git
@@ -66,14 +59,11 @@ zathura   # pdf viewer
 #zotero
 ];
 
-#programs.nixvim.enable = true;
-#programs.nixvim.imports = [ ./modules/nixvim.nix ]; 
-
-nixpkgs.overlays = [
-  (final: prev: {
-      qutebrowser = oldPkgs.qutebrowser;
-  })
-];
+	#nixpkgs.overlays = [
+	#  (final: prev: {
+	#      qutebrowser = oldPkgs.qutebrowser;
+	#  })
+	#];
 
 # Bootloader.
 boot.loader.systemd-boot.enable = true;
@@ -100,7 +90,7 @@ services.tlp = {
         CPU_SCALING_GOVERNOR_ON_AC = "powersave";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-        CPU_ENERGY_PERF_POLICY_ON_AC = "balance_power";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "power";
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
 
         CPU_MIN_PERF_ON_AC = 0;
@@ -154,14 +144,9 @@ services.keyd = {
 };
 
 # Font.
-services.kmscon = {
-  enable = true;
-  config = {
-    font-name = "JetBrains Mono";
-  };
-};
 fonts.packages = with pkgs; [
   jetbrains-mono
+    google-fonts
 ];
 
 # Enable Bluetooth.

@@ -1,10 +1,19 @@
-{ pkgs, ... }: 
+{ ... }: 
 
 {
   programs.rmpc = {
     enable = true;
   };
 
+    programs.mpv = {
+	enable = true;
+	config = {
+	    profile = "fast";
+	    force-window = "immediate";
+	    volume = 75;
+	};
+    };
+    
   services.mpd = {
     enable = true;
     musicDirectory = "/home/ted/Music";

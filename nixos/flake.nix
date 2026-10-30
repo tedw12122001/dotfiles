@@ -25,7 +25,7 @@
 
  };
 
-  outputs = inputs@{
+  outputs = {
     self,
     nixpkgs,
     home-manager,
@@ -45,7 +45,6 @@
           ./configuration.nix
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
-	  #nixvim.nixosModules.nixvim
           {
             nixpkgs.overlays = [
               whitenoise.overlays.default

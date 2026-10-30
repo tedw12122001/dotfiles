@@ -18,7 +18,7 @@ let
 in
 
 {
-
+stylix.targets.hyprland.enable = false;
 wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -30,11 +30,14 @@ wayland.windowManager.hyprland = {
 		border_size = 2;	
 		resize_on_border = true;
 		allow_tearing = true;
-		layout = "master";	
+		layout = "dwindle";	
 		col = {
 		    active_border = "#${config.lib.stylix.colors.base05}";
 		    inactive_border = "#${config.lib.stylix.colors.base02}";
 		};
+	    };
+	    dwindle = {
+		force_split = 2;
 	    };
 	    decoration = {
 		rounding = 5;
@@ -42,10 +45,6 @@ wayland.windowManager.hyprland = {
 		inactive_opacity = 1.0;
 		fullscreen_opacity = 1.0;
 	    };	
-	    master = {
-		new_status = "slave";
-		orientation = "left";
-	    };
 	    misc = {
 		force_default_wallpaper = 0;
 		disable_hyprland_logo = true;
@@ -77,7 +76,7 @@ wayland.windowManager.hyprland = {
 	    { leaf = "windowsMove"; enabled = true; speed = 4; bezier = "bounce"; style = "slide"; }
 	    { leaf = "border"; enabled = true; speed = 5; bezier = "linear"; }
 	    { leaf = "fade"; enabled = true; speed = 3; bezier = "md3_decel"; }
-	    { leaf = "workspaces"; enabled = true; speed = 2.5; bezier = "softAcDecel"; style = "slide"; }
+	    { leaf = "workspaces"; enabled = true; speed = 2.5; bezier = "softAcDecel"; style = "fade"; }
 	];
 
 	env = [
@@ -95,9 +94,9 @@ wayland.windowManager.hyprland = {
 	    (bind "SHIFT + SUPER + M" (exec "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 	    (bind "SUPER + O" ''hl.dsp.layout("togglesplit")'')
 	    (bind "SUPER + E" (exec "kitty -e env VISUAL=nvim ranger"))
-	    (bind "SUPER + B" (exec "brave"))
+	    (bind "SUPER + B" (exec "brave-origin"))
 	    (bind "SUPER + SPACE" (exec "noctalia msg panel-toggle launcher"))
-	    (bind "XF86AudioMicMute" (exec "noctalia msg mic-mute"))   
+	    (bind "SUPER + Q" (exec "noctalia msg mic-mute"))   
 	    (bind "SUPER + TAB" "function() hl.dispatch(hl.dsp.window.cycle_next()) end")
 
 	    # Workspaces

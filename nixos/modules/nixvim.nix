@@ -7,6 +7,7 @@
       relativenumber = true;
       shiftwidth = 4;
       wrap = true;
+      textwidth = 69;
       linebreak = true;
       breakindent = true;
       clipboard = "unnamedplus";
@@ -55,7 +56,28 @@
           };
         };
       };
+	nvim-tree = {
+		enable = true;
+		openOnSetup = true;
+	    };
+	lexima = {
+	    enable = true;
+	    settings = {
+		enable_basic_rules = 1;
+		};
+	};
+	airline = {
+	    enable = true;
+	    };
     };
+
+    extraConfigVim = ''
+    call lexima#add_rule({
+      \ 'char': '{',
+      \ 'input': '{};<Left><Left>',
+      \ 'filetype': 'nix'
+    \ })
+  '';
 
     keymaps = [
       {
@@ -76,6 +98,16 @@
           silent = true;
         };
       }
+    {
+        mode = "n";
+        key = "k";
+        action = "gk";
+        options = {
+          desc = "Move up by visual line";
+          silent = true;
+        };
+      }
+ 
     ];
   };
 }

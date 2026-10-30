@@ -1,0 +1,175 @@
+\ProvidesPackage{Tedmer}
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage[style=verbose]{biblatex}
+\usepackage{csquotes}
+
+\usepackage{setspace}
+\doublespacing
+\usepackage{fontspec}
+\setmonofont{JetBrains Mono}
+\ttfamily
+
+\usepackage{tcolorbox}
+\setlength{\fboxsep}{0pt}
+\setlength{\fboxrule}{1pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% -- Gruvbox Dark Palette -- %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{gbBg}    {HTML}{282828}  % main background
+\definecolor{gbBg1}   {HTML}{3c3836}  % secondary background
+\definecolor{gbBg2}   {HTML}{504945}  % tertiary background
+\definecolor{gbBg3}   {HTML}{665c54}  % quaternary background
+\definecolor{gbBg4}   {HTML}{7c6f64}  % muted grey
+\definecolor{gbFg}    {HTML}{ebdbb2}  % main foreground
+\definecolor{gbFg2}   {HTML}{d5c4a1}  % secondary foreground
+\definecolor{gbFg3}   {HTML}{bdae93}  % tertiary foreground
+\definecolor{gbFg4}   {HTML}{a89984}  % muted foreground
+\definecolor{gbRed}   {HTML}{fb4934}  % bright red
+\definecolor{gbYellow}{HTML}{fabd2f}  % bright yellow
+\definecolor{gbPink}  {HTML}{d3869b}    % bright pink
+\definecolor{gbGreen} {HTML}{b8bb26}  % bright green
+\definecolor{gbOrange}{HTML}{fe8019}  % bright orange
+\definecolor{gbBlue}  {HTML}{83a598}  % bright blue
+\definecolor{gbAqua}  {HTML}{8ec07c}  % bright aqua
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% -- Accent color -- %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\colorlet{gbAccentColor}{gbYellow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% -- Beamer Colors -- %%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamercolor{normal text}         {fg=gbFg,           bg=gbBg}
+\setbeamercolor{alerted text}        {fg=gbAccentColor}
+\setbeamercolor{example text}        {fg=gbGreen}
+\setbeamercolor{structure}           {fg=gbAccentColor}
+\setbeamercolor{background canvas}   {bg=gbBg}
+\setbeamercolor{title}               {fg=gbAccentColor,  bg=gbBg}
+\setbeamercolor{author}              {fg=gbFg,           bg=gbBg}
+\setbeamercolor{institute}           {fg=gbFg3,          bg=gbBg}
+\setbeamercolor{date}                {fg=gbFg3,          bg=gbBg}
+\setbeamercolor{frametitle}          {fg=gbAccentColor,  bg=gbBg1}
+\setbeamercolor{block title}         {fg=gbBg,           bg=gbAccentColor}
+\setbeamercolor{block body}          {fg=gbFg,           bg=gbBg1}
+\setbeamercolor{block title alerted} {fg=gbBg,           bg=gbOrange}
+\setbeamercolor{block body alerted}  {fg=gbFg,           bg=gbBg1}
+\setbeamercolor{block title example} {fg=gbBg,           bg=gbPurple}
+\setbeamercolor{block body example}  {fg=gbFg,           bg=gbBg1}
+\setbeamercolor{itemize item}        {fg=gbAccentColor}
+\setbeamercolor{itemize subitem}     {fg=gbOrange}
+\setbeamercolor{itemize subsubitem}  {fg=gbAqua}
+\setbeamercolor{enumerate item}      {fg=gbAccentColor}
+\setbeamercolor{enumerate subitem}   {fg=gbOrange}
+\setbeamercolor{enumerate subsubitem}{fg=gbAqua}
+\setbeamercolor{description item}    {fg=gbAccentColor}
+\setbeamercolor{caption name}        {fg=gbAccentColor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% -- Beamer Fonts -- %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamerfont{title}            {family=\ttfamily, size=\large,      series=\bfseries}
+\setbeamerfont{author}           {family=\ttfamily, size=\normalsize, series=\mdseries}
+\setbeamerfont{institute}        {family=\ttfamily, size=\small,      series=\mdseries}
+\setbeamerfont{date}             {family=\ttfamily, size=\small,      series=\mdseries}
+\setbeamerfont{frametitle}       {family=\ttfamily, size=\large,      series=\bfseries}
+\setbeamerfont{block title}      {family=\ttfamily, size=\normalsize, series=\bfseries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% -- Other Symbols -- %%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}     {\raisebox{0.15ex}{\small\textbullet}}
+\setbeamertemplate{itemize subitem}  {\raisebox{0.15ex}{\small\textendash}}
+\setbeamertemplate{itemize subsubitem}{\raisebox{0.15ex}{\scriptsize\textperiodcentered}}
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% -- Title Page -- %%
+%%%%%%%%%%%%%%%%%%%%%%
+\defbeamertemplate*{title page}{gruvbox}{%
+
+    %% Accent bar at the top
+    \begin{tikzpicture}[remember picture, overlay]
+	\fill[gbAccentColor]
+	    (current page.north west) rectangle ([yshift=-3pt] current page.north east);
+    \end{tikzpicture}%
+
+    \vfill
+
+    %% Title 
+    \begin{beamercolorbox}[wd=\textwidth, sep=0pt]{title}
+	\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par
+    \end{beamercolorbox}%
+
+    %% Separator
+    {\color{gbBg3}\rule{0.42\textwidth}{0.4pt}}\par
+
+    \vskip0.2em
+
+    %% Author, institute, date
+    \begin{beamercolorbox}[wd=\textwidth, sep=0pt]{author}
+	\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par
+	\ifx\insertinstitute\@empty\else
+    \vskip0.25em
+	\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par
+	\fi
+	\ifx\insertdate\@empty\else
+    \vskip0.25em
+      \usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par
+	\fi
+    \vskip4em
+    \end{beamercolorbox}%
+    \vfill
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% -- Frame Title -- %%
+%%%%%%%%%%%%%%%%%%%%%%%
+\defbeamertemplate*{frametitle}{gruvbox}{%
+    \nointerlineskip
+    \begin{beamercolorbox}[%
+	wd=\paperwidth, ht=2.5ex, dp=1.2ex,
+	leftskip=0.7cm, rightskip=0.7cm]{frametitle}
+	\usebeamerfont{frametitle}\insertframetitle%
+    \end{beamercolorbox}%
+    \nointerlineskip
+    {\color{gbAccentColor}\rule{\paperwidth}{1pt}}%
+}
+
+%% empty headline
+\defbeamertemplate*{headline}{gruvbox}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% -- Defining Different Frames -- %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\pic}[1]{%
+    \begin{figure}
+	\begin{tcbox}
+	[colframe=gbAccentColor, colback=gbAccentColor, boxrule=1pt, boxsep=0pt, arc=0pt]
+	{\includegraphics[height=0.75\textheight,keepaspectratio]{#1}}
+	\end{tcbox} 
+    \end{figure}
+}
+
+\newcommand{\twocolframe}[4]{%
+    \colorlet{gbAccentColor}{#1}
+    \begin{frame}
+	\frametitle{#2}
+	\begin{columns}
+	    \column{0.5\textwidth}
+		{#3}
+	    \column{0.5\textwidth}
+		{#4}
+	\end{columns}
+    \end{frame}
+}
+
+\newcommand{\onecolframe}[3]{%
+    \colorlet{gbAccentColor}{#1}
+    \begin{frame}
+	\frametitle{#2}
+	\large{{#3}}
+    \end{frame}
+}
