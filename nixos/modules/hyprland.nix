@@ -30,14 +30,11 @@ wayland.windowManager.hyprland = {
 		border_size = 2;	
 		resize_on_border = true;
 		allow_tearing = true;
-		layout = "dwindle";	
+		layout = "scrolling";	
 		col = {
 		    active_border = "#${config.lib.stylix.colors.base05}";
 		    inactive_border = "#${config.lib.stylix.colors.base02}";
 		};
-	    };
-	    dwindle = {
-		force_split = 2;
 	    };
 	    decoration = {
 		rounding = 5;
@@ -74,7 +71,7 @@ wayland.windowManager.hyprland = {
 
 	animation = [
 	    { leaf = "windowsMove"; enabled = true; speed = 4; bezier = "bounce"; style = "slide"; }
-	    { leaf = "border"; enabled = true; speed = 5; bezier = "linear"; }
+	    { leaf = "border"; enabled = true; speed = 1; bezier = "linear"; }
 	    { leaf = "fade"; enabled = true; speed = 3; bezier = "md3_decel"; }
 	    { leaf = "workspaces"; enabled = true; speed = 2.5; bezier = "softAcDecel"; style = "fade"; }
 	];
@@ -86,18 +83,28 @@ wayland.windowManager.hyprland = {
 
 	bind = [
 	    (bind "SUPER + T" (exec "kitty"))
-	    (bind "SUPER + W" "hl.dsp.window.close()")
-	    (bind "SUPER + H" (exec "kitty nvim ~/dotfiles/nixos/home.nix"))
-	    (bind "SUPER + C" (exec "kitty nvim ~/dotfiles/nixos/configuration.nix"))	
-	    (bind "SUPER + F" ''hl.dsp.window.fullscreen({ mode = "fullscreen" })'')
-	    (bind "SUPER + V" ''hl.dsp.window.float({ action = "toggle" })'')
 	    (bind "SHIFT + SUPER + M" (exec "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
-	    (bind "SUPER + O" ''hl.dsp.layout("togglesplit")'')
 	    (bind "SUPER + E" (exec "kitty -e env VISUAL=nvim ranger"))
 	    (bind "SUPER + B" (exec "brave-origin"))
 	    (bind "SUPER + SPACE" (exec "noctalia msg panel-toggle launcher"))
 	    (bind "SUPER + Q" (exec "noctalia msg mic-mute"))   
+
+	    # Window Management
+	    (bind "SUPER + W" "hl.dsp.window.close()")
+	    (bind "SUPER + H" ''hl.dsp.layout("focus left")'')
+	    (bind "SUPER + L" ''hl.dsp.layout("focus right")'')
+	    (bind "SUPER + J" ''hl.dsp.layout("focus down")'')
+	    (bind "SUPER + K" ''hl.dsp.layout("focus up")'')
+	    (bind "SUPER + R" ''hl.dsp.layout("colresize 1.0")'')
+	    (bind "SUPER + SHIFT + R" ''hl.dsp.layout("colresize 0.5")'')
+	    (bind "SUPER + O" ''hl.dsp.layout("consume")'')
+	    (bind "SUPER + SHIFT + O" ''hl.dsp.layout("promote")'')
+	    (bind "SUPER + P" ''hl.dsp.layout("swapcol l")'')
+	    (bind "SUPER + SHIFT + P" ''hl.dsp.layout("swapcol r")'')
+	    (bind "SUPER + V" ''hl.dsp.window.float({ action = "toggle" })'')
+	    (bind "SUPER + F" ''hl.dsp.window.fullscreen({ mode = "fullscreen" })'')
 	    (bind "SUPER + TAB" "function() hl.dispatch(hl.dsp.window.cycle_next()) end")
+	    (bind "SUPER + SHIFT + TAB" "function() hl.dispatch(hl.dsp.window.cycle_previouj()) end")
 
 	    # Workspaces
 	    (bind "SUPER + 1" ''hl.dsp.focus({ workspace = "1" })'')
