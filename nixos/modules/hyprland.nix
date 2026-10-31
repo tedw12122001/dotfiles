@@ -50,7 +50,7 @@ wayland.windowManager.hyprland = {
 		disable_hyprland_logo = true;
 	    };
 	    input = {
-	      kb_layout          = "gb";
+	      kb_layout          = "us";
 	      kb_options = "caps:swapescape";
 	      follow_mouse       = 0;
 	      sensitivity        = 0;

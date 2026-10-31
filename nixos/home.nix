@@ -13,6 +13,7 @@ programs.home-manager.enable = true;
 
 imports = [
   ./modules
+    ../qutebrowser.nix
 ];
 
 home.pointerCursor = {

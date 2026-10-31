@@ -58,12 +58,6 @@ zathura   # pdf viewer
 #zotero
 ];
 
-	#nixpkgs.overlays = [
-	#  (final: prev: {
-	#      qutebrowser = oldPkgs.qutebrowser;
-	#  })
-	#];
-
 # Bootloader.
 boot.loader.systemd-boot.enable = true;
 boot.loader.systemd-boot.configurationLimit = 8;   # Number of generations at boot.
@@ -201,9 +195,6 @@ users.users.ted = {
     description  = "ted";
     extraGroups  = [ "networkmanager" "wheel" "audio" "libvirtd" ];
 };
-
-# Firefox.
-programs.firefox.enable = true;
 
 # Allow Unfree Packages
 nixpkgs.config.allowUnfree = true;
