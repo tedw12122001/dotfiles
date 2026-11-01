@@ -12,6 +12,7 @@ let
 	function()
 	    hl.exec_cmd("kitty")
 	    hl.exec_cmd("noctalia")
+	    hl.exec_cmd("unclutter &")
 	end
     '';
 
@@ -53,8 +54,10 @@ wayland.windowManager.hyprland = {
 	      sensitivity        = 0;
 	      touchpad.natural_scroll = true;
 	    };
+	    cursor = {
+		inactive_timeout = 3;
+	    };
 	};
-	
 	monitor = [
 	    { output = ""; mode = "3072x1920@165"; position = "0x0"; scale = 2; }
 	];
